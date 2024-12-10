@@ -10,20 +10,20 @@ Sistem rekomendasi film bertujuan untuk meningkatkan pengalaman pengguna dalam m
 ### Problem Statement
 Berdasarkan latar belakang diatas, proyek ini berfokus pada beberapa masalah utama yang perlu dipecahkan:
 * Bagaimana cara melakukan pengolahan data yang baik sehingga dapat digunakan untuk membangun model sistem rekomendasi yang efektif?
+* Bagaimana memberikan rekomendasi bagi pengguna yang yang memiliki kesaaman pola dengan film yang disukai?
 * Bagaimana cara membangun model machine learning yang mampu merekomendasikan film berdasarkan preferensi pengguna?
-* Bagaimana memastikan bahwa rekomendasi film yang diberikan benar-benar sesuai dengan minat pengguna?
 
 ### Goal
 Tujuan dibuat proyek ini adalah sebagai barikut:
 * Melakukan pengolahan data secara efisien agar dapat digunakan dalam pembangunan model sistem rekomendasi.
+* Membungun model rekomendasi bagi pengguna yang yang memiliki kesaaman pola dengan film yang disukai.
 * Membangun model machine learning yang dapat memberikan rekomendasi film dengan tingkat akurasi tinggi.
-* Meningkatkan user experience dengan memberikan rekomendasi film yang relevan dan menarik bagi pengguna[1][4].
 
 ### Solution Statement
 Dalam proyek ini, untuk mengatasi asalah diatas, digunakan teknik analisis data dan metode machine learning yaitu:
-* Teknik Univariate Exploratory Data Analysis (EDA) dan Preparation Data untuk proses pengolahan data yang efektif dan efisien. 
-* Content-Based Filtering untuk merekomendasikan film berdasarkan kemiripan atribut seperti genre, aktor, dan sinopsis. Ini memastikan bahwa pengguna mendapatkan rekomendasi yang relevan berdasarkan film yang telah mereka tonton sebelumnya[1][2].
-* Collaborative Filtering untuk memanfaatkan data dari interaksi pengguna lain untuk memberikan rekomendasi. Metode ini bergantung pada kesamaan preferensi antara pengguna untuk menemukan film baru yang mungkin disukai[2][3].
+* Menggunakan Teknik Univariate Exploratory Data Analysis (EDA) dan Preparation Data untuk proses pengolahan data yang efektif dan efisien.
+* Menggunakan Model Content-Based Filtering untuk merekomendasikan film berdasarkan kemiripan film berdasarkan perilaku pengguna.
+* Mengunakan model Model-Based Deep Learning Collaborative Filtering meberikan rekomendasi dengan tingkat akurasi yang tinggi.
 
 ## Data Understanding
 Data understanding dalam proyek sistem rekomendasi film melibatkan pengumpulan, analisis, dan pemahaman tentang data yang akan digunakan untuk membangun model rekomendasi. Data merupakan komponen kunci dalam sistem ini, karena kualitas dan relevansi data akan mempengaruhi akurasi rekomendasi yang dihasilkan. Berikut adalah beberapa aspek penting dari data understanding dalam konteks ini.
@@ -55,71 +55,47 @@ File-file CSV yakni:
 Pada proyek ini hanya menggunakan 2 file csv yaitu ratings.csv (ratings) dan movies_metadata.csv (movies) yang dapat dijelaskan sebagai berikut:
 **1. ratings_small.csv**
 Terdiri dari dari 100.000 rating dari 700 pengguna pada 9.000 film. Total baris sebanyak 100004 dan kolom sebayak 4 dengan kolom sebagai berikut:
-* userId
-ID unik untuk pengguna yang memberikan penilaian (rating). Ini digunakan untuk mengidentifikasi pengguna secara anonim.
-* movieId
-ID unik untuk film yang dinilai oleh pengguna. ID ini biasanya terhubung dengan dataset film utama untuk mendapatkan informasi lebih detail tentang film tersebut.
-* rating
-Nilai yang diberikan oleh pengguna untuk film tertentu. Biasanya berupa skala, seperti dari 1 hingga 5 atau 1 hingga 10, di mana angka yang lebih tinggi menunjukkan penilaian yang lebih positif.
-* timestamp
-Waktu ketika penilaian diberikan, direpresentasikan dalam format UNIX timestamp (jumlah detik sejak 1 Januari 1970).
+
+**| Variabel                    | Keterangan     |**
+| -----------------------     | ------------------------------------------------------------------------- |
+| userId                      | ID unik untuk pengguna yang memberikan penilaian (rating). Ini digunakan untuk mengidentifikasi pengguna secara anonim.  |
+| movieId|ID unik untuk film yang dinilai oleh pengguna untuk mendapatkan informasi lebih detail tentang film tersebut.                                  |
+| rating | Nilai yang diberikan oleh pengguna untuk film tertentu dengan skala 1 hingga 5, di mana angka yang lebih tinggi menunjukkan penilaian yang lebih positif. |
+| timestamp                   | Waktu ketika penilaian diberikan, direpresentasikan dalam format UNIX timestamp (jumlah detik sejak 1 Januari 1970).   |
 
 **2. movies_metadata.csv**
-Memiliki sebanyak 45466 baris dan 24 Kolom dengan rincian kolom sebagai berikut
-* adult
-Mengindikasikan apakah film tersebut untuk orang dewasa (adult content). Nilainya biasanya True atau False.
-belongs_to_collection
-* Informasi tentang koleksi atau seri film tertentu yang mencakup film ini (misalnya, film dalam seri Harry Potter). Biasanya berupa JSON atau string deskriptif.
-* Budget
-Anggaran produksi film dalam satuan mata uang (biasanya USD). Nilainya berupa angka.
-* genres
-Daftar genre film, seperti Action, Comedy, Drama. Biasanya berupa JSON atau daftar string.
-* homepage
-URL dari situs web resmi film tersebut.
-* id
-ID unik untuk film, biasanya merujuk pada database film tertentu seperti TMDb.
-* imdb_id
-ID unik dari film di IMDb (misalnya, tt1234567).
-* original_language
-Bahasa asli film tersebut dalam format kode bahasa ISO 639-1 (misalnya, en untuk bahasa Inggris).
-* original_title
-Judul asli film dalam bahasa produksinya.
-* overview
-Ringkasan singkat tentang alur atau cerita dari film.
-* popularity
-Skor popularitas film berdasarkan sistem tertentu, sering dihitung menggunakan algoritma dari platform film.
-* poster_path
-Path atau tautan menuju gambar poster film. Biasanya berupa path yang dapat digabungkan dengan URL dasar untuk akses.
-* production_companies
-Informasi tentang perusahaan produksi film tersebut. Biasanya berupa JSON dengan nama dan ID perusahaan.
-* production_countries
-Negara tempat film tersebut diproduksi. Biasanya berupa JSON dengan nama negara dan kode negara.
-* release_date
-Tanggal rilis film (format: YYYY-MM-DD).
-* revenue
-Pendapatan kotor yang diperoleh film (biasanya dalam USD).
-* runtime
-Durasi film dalam menit.
-* spoken_languages
-Bahasa yang digunakan dalam dialog film. Biasanya berupa JSON dengan nama dan kode bahasa.
-* status
-Status rilis film (misalnya, Released, In Production).
-* tagline
-Slogan atau frasa singkat yang biasanya digunakan untuk promosi film.
-* title
-Judul utama film yang digunakan untuk promosi.
-* video
-Mengindikasikan apakah ada video terkait film. Nilainya biasanya berupa True atau False.
-* vote_average
-Nilai rata-rata yang diberikan oleh pengguna (misalnya dari IMDb atau TMDb) berdasarkan skala tertentu (biasanya 1-10).
-* vote_count
-Jumlah suara atau ulasan yang diberikan untuk film tersebut.
+Memiliki sebanyak 45466 baris dan 24 Kolom dengan rincian kolom sebagai berikut:
+
+**| Variabel                    | Keterangan     |**
+|adult        | Mengindikasikan apakah film tersebut untuk orang dewasa (adult content). Nilainya biasanya True atau False.|
+|belongs_to_collection|Informasi tentang koleksi atau seri film tertentu yang mencakup film ini (misalnya, film dalam seri Harry Potter). Biasanya berupa JSON atau string deskriptif.|
+|Budget|Anggaran produksi film dalam satuan mata uang (biasanya USD). Nilainya berupa angka.|
+|genres|Daftar genre film, seperti Action, Comedy, Drama. Biasanya berupa JSON atau daftar string.|
+|homepage|URL dari situs web resmi film tersebut.|
+|id|ID unik untuk film, biasanya merujuk pada database film tertentu seperti TMDb.|
+|imdb_id|ID unik dari film di IMDb (misalnya, tt1234567).|
+|original_language|Bahasa asli film tersebut dalam format kode bahasa ISO 639-1 (misalnya, en untuk bahasa Inggris).|
+|original_title|Judul asli film dalam bahasa produksinya.|
+|overview|Judul asli film dalam bahasa produksinya.|
+|popularity|Skor popularitas film berdasarkan sistem tertentu, sering dihitung menggunakan algoritma dari platform film.|
+|poster_path|Path atau tautan menuju gambar poster film. Biasanya berupa path yang dapat digabungkan dengan URL dasar untuk akses.|
+|production_companies|Informasi tentang perusahaan produksi film tersebut. Biasanya berupa JSON dengan nama dan ID perusahaan.|
+|production_countries|Negara tempat film tersebut diproduksi. Biasanya berupa JSON dengan nama negara dan kode negara.|
+|release_date|Tanggal rilis film (format: YYYY-MM-DD).|
+|revenue|Pendapatan kotor yang diperoleh film (biasanya dalam USD).|
+|runtime|Durasi film dalam menit.|
+|spoken_languages|Bahasa yang digunakan dalam dialog film. Biasanya berupa JSON dengan nama dan kode bahasa.|
+|status|Status rilis film (misalnya, Released, In Production).|
+|tagline|Slogan atau frasa singkat yang biasanya digunakan untuk promosi film.|
+|title|Judul utama film yang digunakan untuk promosi.|
+|video|Mengindikasikan apakah ada video terkait film. Nilainya biasanya berupa True atau False.|
+|vote_average|Nilai rata-rata yang diberikan oleh pengguna (misalnya dari IMDb atau TMDb) berdasarkan skala tertentu (biasanya 1-10).|
+|vote_count|Jumlah suara atau ulasan yang diberikan untuk film tersebut.|
 
 #### Mengambil Fitur Sesuai Kebutuhan
 Pada pronyek ini, dataset *movies_metadata (movies)* kita hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
 
 ![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a)
-
 
 #### Melihat Tipe Data Pada Dataset
 Tahap ini kita akan melihat Informsi tipe data pada dataset ratings dan movies yang akan kita gunakan. Selengkapnya dapat dilihat pada gambar berikut.
@@ -261,7 +237,11 @@ Tahap terakhir, kita akan membuat dictionary untuk menentukan pasangan `key-valu
 ![gambar-13](https://github.com/user-attachments/assets/bb2d5e10-cad2-4fe0-b337-b3c12f77ef03)
 
 ## Modeling and Result
-Pada tahap ini ada dua metode atau model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Metode yang pertama yaitu `Consine Similarity`,  digunakan untuk mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Pada proyek ini, kita akan gunakan untuk sistem rekomendasi berbasis `Content-Based Filtering` yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), `Cosine similarity` digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai `0` dan `1`. Kalau nilainya `0` maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi. Berikut adalah rumus cosine similarity Rumus umum cosine similarit[1]:
+Pada tahap ini ada dua model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Kedua model tersebut dapat dijelaskan sebagai berikut:
+
+### Content Based Filtering
+Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik TF-IDF (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
+Pada tahp ini kita gunakan metode Consine Similarity, yang berfungsi mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Pada proyek ini, kita akan gunakan untuk sistem rekomendasi berbasis Content-Based Filtering yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), Cosine similarity digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai 0 dan 1. Kalau nilainya 0 maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi
 
 ![Consine similarity](https://github.com/user-attachments/assets/1133e6d7-8d16-4610-9790-7da9d9c3783c)
 
@@ -271,7 +251,15 @@ Nilai cosine similarity berkisar antara -1 hingga 1.
 * Nilai `0` menunjukkan bahwa kedua vektor tidak memiliki kemiripan (sudut 90 derajat).
 * Nilai `-1` menunjukkan bahwa kedua vektor berlawanan arah (sudut 180 derajat).
 
-Metode yang kedua yaitu `Deep Learning Neural Network` yang merupakan subkategori dari machine learning yang menggunakan struktur ANN yang sangat dalam, dikenal sebagai deep neural networks. Deep learning melibatkan jaringan saraf dengan banyak lapisan tersembunyi, yang memungkinkan model untuk belajar dan mengenali pola yang sangat kompleks dan abstrak dari data [2]. Pada tahap ini, model menghitung skor kecocokan antara user dan movie teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan movie. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan movie. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan movie. Skor kecocokan ditetapkan dalam skala [`0,1`] dengan fungsi aktivasi sigmoid. Di sini, kita membuat class `RecommenderNe`t dengan `keras Model class`. Kedua kita lakukan proses compile terhadap model. Model ini menggunakan `Binary Crossentropy` untuk menghitung `loss function`, `Adam (Adaptive Moment Estimation)` sebagai `optimizer`, serta Mean Absolute Error(MAE) dan Root Mean Squared Error (RMSE) sebagai metrics evaluation.
+Hasil dari penerapan model ini dapat dilihat pada gambar berikut:
+
+[gambar--- CBF]
+
+
+### Penerapan Model Collaborative Filtering
+Pada tahap ini menggunakan pendekatan Model-Based Deep Learning Collaborative Filtering. Metode `Deep Learning Neural Network (DNN)` yang merupakan subkategori dari machine learning yang menggunakan struktur ANN yang sangat dalam, dikenal sebagai deep neural networks. Deep learning melibatkan jaringan saraf dengan banyak lapisan tersembunyi, yang memungkinkan model untuk belajar dan mengenali pola yang sangat kompleks dan abstrak dari data [2].
+
+Pada tahap ini, model menghitung skor kecocokan antara user dan movie teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan movie. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan movie. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan movie. Skor kecocokan ditetapkan dalam skala [`0,1`] dengan fungsi aktivasi sigmoid. Di sini, kita membuat class `RecommenderNe`t dengan `keras Model class`. Kedua kita lakukan proses compile terhadap model. Model ini menggunakan `Binary Crossentropy` untuk menghitung `loss function`, `Adam (Adaptive Moment Estimation)` sebagai `optimizer`, serta Mean Absolute Error(MAE) dan Root Mean Squared Error (RMSE) sebagai metrics evaluation.
 
 Langkah berikutnya, mulailah proses training. Pada proses ini kita gunakan fungsi callbacks, dimana jika kinerja model tidak mengalami keanaikan maka pelatiahan dihentikan. Pada proses training parameter yang digunakan yakni `batch_size=8`, `epoch = 50`, `shuffle = True` dan `verbose=1`
 
@@ -295,7 +283,7 @@ Pada tahap ini, kita menggunakan metrik evaluasi  untuk mengukur kinerja model (
    * y_i adalah nilai aktual
    * ŷ_i adalah nilai prediksi
      
-3. Root Mean Squared Error (RMSE)
+2. Root Mean Squared Error (RMSE)
    RMSE adalah turunan dari MSE. Seperti namanya, RMSE adalah akar kuadrat dari MSE.
    RMSE menghitung rata-rata dari selisih kuadrat antara nilai prediksi dan nilai aktual kemudian diambil akar kuadratnya. Semakin kecil nilai RMSE, semakin baik kualitas model tersebut.
 
@@ -307,13 +295,36 @@ Pada tahap ini, kita menggunakan metrik evaluasi  untuk mengukur kinerja model (
    * n adalah jumlah sampel dalam data
    * y_i adalah nilai aktual
    * ŷ_i adalah nilai prediksi
+  
+  ### Evaluasi menggunakan Visualisasi Metriks
+  Pada tahap ini kita akana lakukan visualisasi metrik seperti Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja
+  model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara
+  keduanya serta tren kesalahan dari waktu ke waktu[3]. Hasil dari kedua metiks tersebut dapat ditampilakn pada gambar dibawah ini:
 
-   
-5. 
+  * Gambar Visualisasi Metriks MAE
+    
+   ![metriks-MAE](https://github.com/user-attachments/assets/04a2a29b-b44b-4fde-8396-c1b1652d40ea)
 
+  Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1383 untuk training dan sedikit diatas 0.1550 untuk validasi.
 
+  * Gambar Visualisasi Metriks RMSE
 
+    ![metriks-RMSE](https://github.com/user-attachments/assets/bd08a600-c4d1-42e9-a681-a61b7ae06262)
 
+  Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1749 untuk training dan sedikit dibawah 0.185 untuk validasi.
+
+## Kesimpulan
+Berdasarkan hasil yang diperoleh setelah melakukan proses pengolahan data sampai proses evaaluasi dapat dismpulkan bahwah:
+1. Pengunaan Teknik EDA kita dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20243` dan `13137`, sementara genre yang lain berada dibawah `10000`.
+2. Dengan preparation data yang sistematis, seperti menangani nilai hilang (missing values), menghapus atau menangani outlier, dan melakukan encoding pada data kategorikal, proses analisis data menjadi lebih efisien dan akurat. Data yang bersih dan siap digunakan akan mengurangi risiko kesalahan dalam model analitik.
+3. Dengan mengunakan metode Content-Based Filtering dapat memberikan rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna, namun masih memiliki kelemahan pada *Cold-Start Problem* (item baru) yang belum pernah direkomendasikan sebelumnya akan sulit untuk diintegrasikan ke dalam sistem.
+4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.2 pada epoh ke-
+
+## Daftar Pustaka
+1. D. A. R. Ariantini, A. S. M. Lumenta and A.Jacobus, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016.
+2. Neural Network: Cikal Bakal Revolusi Deep Learning. Tersedia: tautan. Diakses pada: Desember 2024.
+3. Perbedaan MAE, MSE, RMSE, dan MAPE pada Data Science. Tersedia: tautan. Diakses pada: Desember 2024.
+4. Firmansyah Fataruba, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016. "PENERAPAN METODE COSINE SIMILARITY UNTUK PENGECEKAN KEMIRIPAN JAWABAN UJIAN SISWA", JATI (Jurnal Mahasiswa Teknik Informatika) Vol. 2  No. 2, September 2018.  
 
 
 
