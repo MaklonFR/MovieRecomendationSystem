@@ -55,8 +55,7 @@ File-file CSV yakni:
 Pada proyek ini hanya menggunakan 2 file csv yaitu ratings.csv (ratings) dan movies_metadata.csv (movies) yang dapat dijelaskan sebagai berikut:
 **1. ratings_small.csv**
 Terdiri dari dari 100.000 rating dari 700 pengguna pada 9.000 film. Total baris sebanyak 100004 dan kolom sebayak 4 dengan kolom sebagai berikut:
-
-**| Variabel                    | Keterangan     |**
+| Variabel                    | Keterangan     |
 | -----------------------     | ------------------------------------------------------------------------- |
 | userId                      | ID unik untuk pengguna yang memberikan penilaian (rating). Ini digunakan untuk mengidentifikasi pengguna secara anonim.  |
 | movieId|ID unik untuk film yang dinilai oleh pengguna untuk mendapatkan informasi lebih detail tentang film tersebut.                                  |
@@ -66,7 +65,8 @@ Terdiri dari dari 100.000 rating dari 700 pengguna pada 9.000 film. Total baris 
 **2. movies_metadata.csv**
 Memiliki sebanyak 45466 baris dan 24 Kolom dengan rincian kolom sebagai berikut:
 
-**| Variabel                    | Keterangan     |**
+| Variabel                    | Keterangan     |
+| -----------------------     | ------------------------------------------------------------------------- |
 |adult        | Mengindikasikan apakah film tersebut untuk orang dewasa (adult content). Nilainya biasanya True atau False.|
 |belongs_to_collection|Informasi tentang koleksi atau seri film tertentu yang mencakup film ini (misalnya, film dalam seri Harry Potter). Biasanya berupa JSON atau string deskriptif.|
 |Budget|Anggaran produksi film dalam satuan mata uang (biasanya USD). Nilainya berupa angka.|
@@ -326,11 +326,4 @@ Berdasarkan hasil yang diperoleh setelah melakukan proses pengolahan data sampai
 3. Perbedaan MAE, MSE, RMSE, dan MAPE pada Data Science. Tersedia: tautan. Diakses pada: Desember 2024.
 4. Firmansyah Fataruba, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016. "PENERAPAN METODE COSINE SIMILARITY UNTUK PENGECEKAN KEMIRIPAN JAWABAN UJIAN SISWA", JATI (Jurnal Mahasiswa Teknik Informatika) Vol. 2  No. 2, September 2018.
 5. Nathania, R.A. 2024. Sistem Rekomendasi Film Dengan Collaborative Deep Learning. (Skripsi, Fakultas Teknologi Informasi dan Sains, Universitas Katolik Parahyangan: Bandung).
-6. Salim .E, Paragantha. J, Lauro M, "Perancangan Sistem Rekomendasi Film menggunakan metode Contentbased Filtering" (Paper, Jurusan Teknik Informatika, Fakultas Teknologi Informasi, Universitas Tarumanagara: Jakarta Barat).  
-
-
-
-
-
-
-
+6. Salim .E, Paragantha. J, Lauro M, "Perancangan Sistem Rekomendasi Film menggunakan metode Contentbased Filtering" (Paper, Jurusan Teknik Informatika, Fakultas Teknologi Informasi, Universitas Tarumanagara: Jakarta Barat).
