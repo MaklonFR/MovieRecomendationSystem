@@ -28,7 +28,10 @@ Dalam proyek ini, untuk mengatasi asalah diatas, digunakan teknik analisis data 
 ## Data Understanding
 Data understanding dalam proyek sistem rekomendasi film melibatkan pengumpulan, analisis, dan pemahaman tentang data yang akan digunakan untuk membangun model rekomendasi. Data merupakan komponen kunci dalam sistem ini, karena kualitas dan relevansi data akan mempengaruhi akurasi rekomendasi yang dihasilkan. Berikut adalah beberapa aspek penting dari data understanding dalam konteks ini.
 
-### Informasi Dataset
+### Exploratory Data Analysis - EDA
+Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Metode ini tidak melibatkan interaksi antara beberapa variabel, sehingga memberikan fokus yang jelas pada variabel yang sedang dianalisis. 
+
+#### Informasi Dataset
 
   | Jenis      | Keterangan     |
   | -----------------------     | ------------------------------------------------------------------------- |
@@ -112,89 +115,201 @@ Nilai rata-rata yang diberikan oleh pengguna (misalnya dari IMDb atau TMDb) berd
 * vote_count
 Jumlah suara atau ulasan yang diberikan untuk film tersebut.
 
-### Mengambil Fitur Sesuai Kebutuhan
+#### Mengambil Fitur Sesuai Kebutuhan
 Pada pronyek ini, dataset *movies_metadata (movies)* kita hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
 
-Gambar_1.
+![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a)
 
-### Melihat Tipe Data Pada Dataset
+
+#### Melihat Tipe Data Pada Dataset
 Tahap ini kita akan melihat Informsi tipe data pada dataset ratings dan movies yang akan kita gunakan. Selengkapnya dapat dilihat pada gambar berikut.
 
-Gambar_2.
+![gambar-2](https://github.com/user-attachments/assets/cf300843-0864-47e9-b27e-b056a5ef5cb6)
 
 Dapat dilihat pada informasi dataset **movies**, 3 variable dengan tipe data object dan 2 variabel bertipe float64. Selain itu ada perbedaan pada variabel `title`, `vote_average` dan `vote_count` yang memiliki data 45460 dengan variabel id dan genres dengan data 45466. Sedangkan pada informasi dataset **ratings** terdapat 1 variabel dengan tipe data float64 dan 3 variable dengan tipe data int64.
 
-### Menangani Missing Value
+#### Univariate Analysis
+Univariate analysis adalah teknik yang digunakan untuk menganalisis satu variabel pada suatu waktu. Tujuannya adalah untuk menggambarkan dan memahami sifat dasar dari variabel tersebut, termasuk distribusi nilai, tendensi pusat, dan penyebaran data. Langkah awal kita menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, kita perlu menyamakan tipe data tersebut dengan cara mnyamakan nama atribut movieId dan tipe data `int64`. Selanjutnya kita lakukan analisis statistik deskriptif dan visualisasi data.
+
+##### Statistik Deskriptif
+Statistik deskriptif memberikan ringkasan numerik dari variabel yang dianalisis. Tampilan statistik deskriptif dapat dilihat pada gambar berikut:
+
+![statistik_deskriptif](https://github.com/user-attachments/assets/3f4b50b2-331b-45aa-8297-9ca95ab8cb2d)
+
+#### Visualisasi Data
+Visualisasi adalah alat penting dalam univariate analysis yang memungkinkan analis untuk melihat pola dan distribusi data secara intuitif. Jenis grafik yang dipakai yakni `bar chart`  untuk menampilkan frekuensi atau proporsi kategori dalam variabel kategorikal.
+Pada tahap ini kita akan menggunakan grafik untuk menggambarkan distribusi genre dan rating film, serta hubungan antara fitur-fitur dalam dataset.
+* Distribusi Ratings
+  Pada langkah ini kita akan mendistribusi ratings dengan tujuan, mengidentifikasi nilai rating yang paling umum diberikan oleh pengguna, menilai apakah data rating cenderung condong ke
+  satu nilai (misalnya, lebih banyak rating tinggi atau rendah) dan membantu memahami pola preferensi pengguna. Proses distribusi rating mengunakan library `matplotlib` seperting yang
+  ditampilkan pada gambar berikut:
+
+  ![gambar-8](https://github.com/user-attachments/assets/26495257-b5cb-46a9-8fe5-429d8aa37f51)
+
+  Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%,
+  rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%.
+
+  * Distribusi Gengres
+    Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode
+    Visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman.
+    Pada tahap ini kita akan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies Ada beberapa fungsi yang kita pakai yakni:
+    * `fillna('[]')`, berfungsi untuk mengisi nilainull atau NaN dalam kolom genres dengan string kosong dalam format list (`[]`).
+    * `apply(literal_eval)`, fungsi literal_eval dari pustaka ast untuk mengubah string yang terlihat seperti Python literal menjadi tipe data list.
+    * `apply(lambda x: [i['name'] for i in x] if isinstance(x, list) else []`, fungsi lambda ini memproses setiap nilai dalam kolom genres: Jika nilai adalah sebuah daftar
+    * `(isinstance(x, list))`, maka ambil nilai dari kunci name untuk setiap elemen. Jika nilai bukan daftar, mengembalikan daftar kosong (`[]`).
+    
+    Selanjutanya kita ubah setiap elemen dalam daftar (genre) menjadi baris terpisah dengan fungsi `explode()`, kemudian menghitung jumlah kemunculan setiap genre dengan fungsi
+    `value_counts()` dan terakhir kita membuat diagram batang untuk menampilkan distribusi genre dengan plot bar `plot(kind='bar')`.
+    Langkah pertama kita buat variabel dataframe baru untuk melakukan analisis visualisasi data. Kemudian kita konversi fitur(variabel) genres ke dalam bentuk list sehingga dapat
+    dianalisi. Berikut adalah gambar distribrusi genres menggunakan grafik bar.
+
+    ![gambar-9](https://github.com/user-attachments/assets/8fc91fa0-b9bc-404f-8325-951ac2e33440)
+
+    Dari grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20243 dan 13137. Sedangkan genre yang lain
+    berada dibawah 10000.
+
+#### Analisis Daftar film dengan skor tertinggi di seluruh rentang film
+Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda
+berdasarkan pentingnya masing-masing komponen. Dalam konteks film, kita perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian
+(vote_average), jumlah suara (vote_count), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar.
+Keterangan:
+      v = jumlah suara untuk film tertentu (vote_count)
+      m = jumlah suara minimum untuk masuk ke daftar (threshold)
+      R = rata-rata skor film tersebut (vote_average)
+      C = rata-rata skor semua film dalam dataset (rata-rata global)
+Hasilnya dapat dilihat pada gambar berikut:
+
+![gambar-10](https://github.com/user-attachments/assets/9cac3d6e-5615-4f76-b913-4c45d84e36fa)
+
+Gambar diatas menunjukan 5 filim dengan skor tertinggi yang diberikan oleh pengguna.
+
+#### Analisis Rating Tertinggi
+Selanjutnya kita gabungkan dataset df_movies dan ratings dengan fungsi pandas pd.merge dan mencari 10 film dengan rating tertinggi. Alisis rating tertinggi dapat dilihat pada gambar berikut:
+
+![10-analisis rating](https://github.com/user-attachments/assets/257800b2-4b5e-4ecc-8598-3c679031faca)
+
+Dapat dilihat pada gambar diatas dari 10 rating tertinggi film yang ada, film dengan judul **Terminator 3: Rise of the Machines*** memiliki rating teratas dengan *mean rating* 4.256 dan total rating sebanya 324.
+
+#### Membandingkan Peringkat rata-rata vs Jumlah total peringkat
+Pada tahap ini kita akan membandingkan rata-rata rangkin dan total rangking menggunakan joinplot untuk melihat pesebaran data yang dapat dilihat pada gambari dibawah ini:
+
+![mean vs total rating](https://github.com/user-attachments/assets/336ee099-c9a0-4fbb-b4be-00c80b0048a9)
+
+Berdasarkan grafik pesebaran data diatas total rating terting berada diatas 250 sebanyak 5 film, sadangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai 2 - 4.5 rating.
+
+## Data Preparation
+Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning.
+
+### Data Cleaning
+Setelah data terkumpul, langkah berikutnya adalah membersihkan data. Ini mencakup:
+Mengatasi Missing Values: Mengisi nilai yang hilang dengan metode seperti imputasi menggunakan rata-rata atau median rating.
+Menghapus Duplikat: Memastikan tidak ada entri duplikat dalam dataset untuk menghindari bias.
+
+#### Menangani Missing Value
 Mengatasi missing values (nilai yang hilang) merupakan langkah penting dalam pengolahan data untuk sistem rekomendasi film. Keberadaan missing values dapat mempengaruhi kualitas model dan akurasi rekomendasi yang dihasilkan. Berikut langkah-langkah yang perlu diambil dalam menganangi missing value pada dataset movies dan ratings.
-	Pertama kita lakukan untuk dataset movies
+Pertama kita lakukan untuk dataset movies
 * Menggunakan fungsi `isnull().sum()` untuk menampilkan jumlah nilai yg hilang pada setiap fitur(variabel)
 
-Gambar-3
+![gambar-3](https://github.com/user-attachments/assets/67787837-b065-4abd-97ac-42cd7defbe81)
 
 Dari hasil diatas, nilai null terdapat pada variabel title, vote_average dan vote_count memiliki nilai null = 6 pada.
 * Menampilkan isi dataset yang memuat nilai yang hilang dengan fungsi `isnull().any(axis = 1)`
 
-Gambar-4
+![gambar-4](https://github.com/user-attachments/assets/d0932703-e38e-428f-9026-a247b3efef7a)
 
 * Menghapus missing value pada dataset menggunakan fungsi `dropna(subset=[‘nama_fitur’]`
 
-Gambar-5
+![gambar-5](https://github.com/user-attachments/assets/271bd039-8749-4fae-be95-f2800ea869be)
 
 Kedua, kita lakukan pada dataset ratings, setelah dicek tidak memiliki missing value seperti yang terlihat pada gambar dibah ini:
 
-Gambar-6
+![gambar-6](https://github.com/user-attachments/assets/eaa9c9d9-13aa-47ce-9482-fcc7e2785bae)
 
-### Manangani Duplikat Data
+#### Manangani Duplikat Data
 Menangani duplikat data adalah langkah penting dalam proses pembersihan data untuk memastikan integritas dan kualitas dataset yang digunakan dalam sistem rekomendasi film. Duplikat data dapat menyebabkan bias dalam analisis dan menghasilkan rekomendasi yang tidak akurat. Berikut adalah langkah-langkah untuk menangani duplikat data.
 Pertama, kita lakukan untuk dataset **movies**,
 * Indentfikasi dataset dengan menggunakan fungsi ` duplicated().sum()`. Setelah dilakukan pengecekan ternyata memiliki 28 data ganda. 
 * Menampilkan isi dataset yang memiliki data ganda pada setiap fitur (kolom), seperti yang terlihat pada gambar berikut:
 
-Gambar-7
+![gambar-7](https://github.com/user-attachments/assets/a7171168-7ca6-4083-ba09-580b30b9366c)
 
 * Menghapus duplikat data pada dataset dengan menggunakan fungsi `drop_duplicates(inplace = True)`
 
 Kedua, lakukan pada dataset **ratings**, setelah dicek tidak memiliki data duplikat.
 
-### Distribusi Ratings
-Distribusi ratings merupakan aspek penting dalam sistem rekomendasi film, karena dapat mempengaruhi cara model merekomendasikan film kepada pengguna. Pada langkah ini kita akan mendistribusi ratings dengan tujuan:
-* Mengidentifikasi nilai rating yang paling umum diberikan oleh pengguna.
-* Menilai apakah data rating cenderung condong ke satu nilai.
-* Membantu memahami pola preferensi pengguna.
-Proses distribusi rating mengunakan library `matplotlib` seperting yang ditampilkan pada gambar berikut:
+### Data Preprocessing
+Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini adalah sebagai berikut:
+* Mengurutkan pengguna berdasarkan ID Pengguna
+* Mengurutkan pengguna berdasarkan ID Pengguna
+* Melakukan penggabungan dataset ratings dan movies
+* Mengambil Dataset sesuai kebutuhan
+Pada proyek ini, data yang diambil sebanyak **20000 data** dari gabungan dataset `movies` dan `ratings` dengan teknik sampling menggunakan fungsi `shuffle` dari library `sklearn.utils` untuk mengambil data secara acak dataset besar untuk mempermudah pengolahan dan mencegah `crash`.
+Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya pada gambar berikut:
 
-Gambar-8
+![gambar-11](https://github.com/user-attachments/assets/1aa3a1c4-7778-47d2-9646-47fdac0a5cdc)
 
-Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%, rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%.
+Dari gambar diatas dapat dilihat dataset kita sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`, `vote_average` dan `vote_count`.
 
-### Distribusi Gengres
-Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode Visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman. 
-Pada tahap ini kita akan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies. Ada beberapa fungsi yang kita pakai yakni:
-* `fillna('[]')`, berfungsi untuk mengisi nilainull atau NaN dalam kolom genres dengan string kosong dalam format list (`[]`).
-•	`apply(literal_eval)`, fungsi literal_eval dari pustaka ast untuk mengubah string yang terlihat seperti Python literal menjadi tipe data list.
-•	`apply(lambda x: [i['name'] for i in x] if isinstance(x, list) else []`, fungsi lambda ini memproses setiap nilai dalam kolom genres: Jika nilai adalah sebuah daftar `(isinstance(x, list))`, maka ambil nilai dari kunci name untuk setiap elemen. Jika nilai bukan daftar, mengembalikan daftar kosong (`[]`).
+Berikutnya, kita bisa melanjutkan ke tahap persiapan dengan membuat variabel preparation yang berisi dataframe df_sample_final kemudian mengurutkan berdasarkan movieId. Hasilnya dpat dilihat pada gambar berikut:
 
-Selanjutanya kita ubah setiap elemen dalam daftar (genre) menjadi baris terpisah dengan fungsi `explode()`, kemudian menghitung jumlah kemunculan setiap genre dengan fungsi `value_counts()` dan terakhir kita membuat diagram batang untuk menampilkan distribusi genre dengan plot bar `plot(kind='bar')`. Berikut adalah gambar distribrusi genres menggunakan grafik bar.
+![gambar-12](https://github.com/user-attachments/assets/bea4db5c-40e8-4c30-9e4e-2a934140e691)
 
-Gambar-9
+Selanjutnya, kita perlu melakukan konversi data series menjadi list. Dalam hal ini, kita menggunakan fungsi `tolist()` dari library `numpy`. Setelah konversi dilakukan diperoleh variabel `movieId`, `movie_name` dan `movie_genres` dengan jumlah masing-masing sebanyak 2248.
 
-Dari grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20243 dan 13137. Sedangkan genre yang lain berada dibawah 10000.
+Tahap terakhir, kita akan membuat dictionary untuk menentukan pasangan `key-value` pada data `movie_id`, `movie_name` dan `movie_genres` yang telah kita siapkan sebelumnya. Hasilnya dapat dilihat pada gambar berikut:
 
-### Daftar film dengan skor tertinggi di seluruh rentang film
-Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda berdasarkan pentingnya masing-masing komponen. Dalam konteks film, kita perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian (vote_average), jumlah suara (vote_count), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar. 
-Keterangan:
-v = jumlah suara untuk film tertentu (vote_count)
-m = jumlah suara minimum untuk masuk ke daftar (threshold)
-R = rata-rata skor film tersebut (vote_average)
-C = rata-rata skor semua film dalam dataset (rata-rata global)
-Hasilnya 
+![gambar-13](https://github.com/user-attachments/assets/bb2d5e10-cad2-4fe0-b337-b3c12f77ef03)
 
+## Modeling and Result
+Pada tahap ini ada dua metode atau model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Metode yang pertama yaitu `Consine Similarity`,  digunakan untuk mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Pada proyek ini, kita akan gunakan untuk sistem rekomendasi berbasis `Content-Based Filtering` yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), `Cosine similarity` digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai `0` dan `1`. Kalau nilainya `0` maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi. Berikut adalah rumus cosine similarity Rumus umum cosine similarit[1]:
 
+![Consine similarity](https://github.com/user-attachments/assets/1133e6d7-8d16-4610-9790-7da9d9c3783c)
 
+**Interpretasi Hasil**
+Nilai cosine similarity berkisar antara -1 hingga 1.
+* Nilai `1` menunjukkan bahwa kedua vektor identik (sudut 0 derajat).
+* Nilai `0` menunjukkan bahwa kedua vektor tidak memiliki kemiripan (sudut 90 derajat).
+* Nilai `-1` menunjukkan bahwa kedua vektor berlawanan arah (sudut 180 derajat).
 
+Metode yang kedua yaitu `Deep Learning Neural Network` yang merupakan subkategori dari machine learning yang menggunakan struktur ANN yang sangat dalam, dikenal sebagai deep neural networks. Deep learning melibatkan jaringan saraf dengan banyak lapisan tersembunyi, yang memungkinkan model untuk belajar dan mengenali pola yang sangat kompleks dan abstrak dari data [2]. Pada tahap ini, model menghitung skor kecocokan antara user dan movie teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan movie. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan movie. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan movie. Skor kecocokan ditetapkan dalam skala [`0,1`] dengan fungsi aktivasi sigmoid. Di sini, kita membuat class `RecommenderNe`t dengan `keras Model class`. Kedua kita lakukan proses compile terhadap model. Model ini menggunakan `Binary Crossentropy` untuk menghitung `loss function`, `Adam (Adaptive Moment Estimation)` sebagai `optimizer`, serta Mean Absolute Error(MAE) dan Root Mean Squared Error (RMSE) sebagai metrics evaluation.
 
+Langkah berikutnya, mulailah proses training. Pada proses ini kita gunakan fungsi callbacks, dimana jika kinerja model tidak mengalami keanaikan maka pelatiahan dihentikan. Pada proses training parameter yang digunakan yakni `batch_size=8`, `epoch = 50`, `shuffle = True` dan `verbose=1`
 
+Proses latihan model dapat dilihat pada gambar berikut:
 
+![pelatihan-model](https://github.com/user-attachments/assets/02d28cfe-8958-45b3-ad21-75c51c83abe5)
+
+Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749
+
+## Evaluation
+Pada tahap ini, kita menggunakan metrik evaluasi  untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja). Pada tahap ini kita akan lakukan visualisasi metrik dengan teknik Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara keduanya serta tren kesalahan dari waktu ke waktu. Berikut ada rumus dari teknik tersebut.
+1. Mean Absolute Error (MAE)
+   MAE adalah salah satu metode evaluasi yang umum digunakan dalam data science. MAE menghitung rata-rata dari selisih absolut antara nilai prediksi dan nilai aktual.
+   Dengan kata lain, MAE menghitung berapa rata-rata kesalahan absolut dalam prediksi. Semakin kecil nilai MAE, semakin baik kualitas model tersebut.
+   Rumus MAE:
+   
+   ![MAE](https://github.com/user-attachments/assets/0a342837-503b-487a-9dd7-b9f205dc1185)
+
+   Dimana:
+   * n adalah jumlah sampel dalam data
+   * y_i adalah nilai aktual
+   * ŷ_i adalah nilai prediksi
+     
+3. Root Mean Squared Error (RMSE)
+   RMSE adalah turunan dari MSE. Seperti namanya, RMSE adalah akar kuadrat dari MSE.
+   RMSE menghitung rata-rata dari selisih kuadrat antara nilai prediksi dan nilai aktual kemudian diambil akar kuadratnya. Semakin kecil nilai RMSE, semakin baik kualitas model tersebut.
+
+   Rumus RMSE:
+   
+   ![RMSE](https://github.com/user-attachments/assets/058da06d-8a58-4cca-b01b-468cdcf4e0e4)
+
+   Dimana:
+   * n adalah jumlah sampel dalam data
+   * y_i adalah nilai aktual
+   * ŷ_i adalah nilai prediksi
+
+   
+5. 
 
 
 
