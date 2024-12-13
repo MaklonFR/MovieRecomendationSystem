@@ -26,13 +26,13 @@ Dalam proyek ini, untuk mengatasi asalah diatas, digunakan teknik analisis data 
 * Mengunakan model Model-Based Deep Learning Collaborative Filtering meberikan rekomendasi dengan tingkat akurasi yang tinggi.
 
 ## Data Understanding
-Data understanding dalam proyek sistem rekomendasi film melibatkan pengumpulan, analisis, dan pemahaman tentang data yang akan digunakan untuk membangun model rekomendasi. Data merupakan komponen kunci dalam sistem ini, karena kualitas dan relevansi data akan mempengaruhi akurasi rekomendasi yang dihasilkan. Berikut adalah beberapa aspek penting dari data understanding dalam konteks ini.
+Data understanding dalam proyek sistem rekomendasi film melibatkan pengumpulan, analisis, dan pemahaman tentang data yang akan digunakan untuk membangun model rekomendasi. Berikut adalah beberapa aspek penting dari data understanding dalam konteks ini.
 
 ### Exploratory Data Analysis - EDA
-Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Metode ini tidak melibatkan interaksi antara beberapa variabel, sehingga memberikan fokus yang jelas pada variabel yang sedang dianalisis. 
+Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Dataset yang digunakan dalam proyek ini yaitu dataset fIlm yang dapat dijelaskan sebagai barikut: 
 
 #### Informasi Dataset
-
+Informasi dari dataset film ini dapata dilihat pada tabel berikut:
   | Jenis      | Keterangan     |
   | -----------------------     | ------------------------------------------------------------------------- |
   | Sumber                      | Dataset: [Kaggle](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset)  |
@@ -43,18 +43,40 @@ Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang be
   | Jenis dan Ukuran Berkas     | ZIP Version 7 (943.76 MB)                 |
   | Jumlah File Dataset         | 7 File (CSV)                              |
 
-File-file CSV yakni:
-* credits.csv
-* keywords.csv
-* links.csv
-* links_small.csv
-* movies_metadata.csv
-* ratings.csv
-* ratings_small.csv
+Dari informasi tabel diatas terlihat bahwa file-filenya berisi metadata untuk seluruh 45.000 film yang tercantum dalam Kumpulan Data Full MovieLens. Kumpulan data ini terdiri dari film-film yang dirilis pada atau sebelum Juli 2017. Poin data mencakup pemeran, kru, kata kunci plot, anggaran, pendapatan, poster, tanggal rilis, bahasa, perusahaan produksi, negara, jumlah suara TMDB, dan rata-rata suara.
 
-Pada proyek ini hanya menggunakan 2 file csv yaitu ratings.csv (ratings) dan movies_metadata.csv (movies) yang dapat dijelaskan sebagai berikut:
-**1. ratings_small.csv**
-Terdiri dari dari 100.000 rating dari 700 pengguna pada 9.000 film. Total baris sebanyak 100004 dan kolom sebayak 4 dengan kolom sebagai berikut:
+Kumpulan data ini juga memiliki file yang berisi 26 juta rating dari 270.000 pengguna untuk seluruh 45.000 film. Ratingnya dalam skala 1-5 dan diperoleh dari situs resmi GroupLens. Berikut penjelasan dari penjelasan file-file dalam kumpulan data tersebut.
+
+  *movie_metadata.csv*: File Metadata Film utama. Berisi informasi tentang 45.000 film yang ditampilkan dalam kumpulan data Full MovieLens. Fitur-fiturnya meliputi poster, latar 
+  belakang, anggaran, pendapatan, tanggal rilis, bahasa, negara produksi, dan perusahaan.
+  
+  *keywords.csv*: Berisi kata kunci plot film untuk film MovieLens kami. Tersedia dalam bentuk Objek JSON yang dirangkai.
+  
+  *credits.csv*: Terdiri dari Informasi Pemeran dan Kru untuk semua film kami. Tersedia dalam bentuk Objek JSON yang dirangkai.
+  
+  *links.csv*: File yang berisi ID TMDB dan IMDB dari semua film yang ditampilkan dalam kumpulan data Full MovieLens.
+  
+  *links_small.csv*: Berisi ID TMDB dan IMDB dari sebagian kecil 9.000 film dari Kumpulan Data Lengkap.
+  
+  *rating_small.csv*: Bagian dari 100.000 rating dari 700 pengguna pada 9.000 film.
+
+
+#### Membaca Dataset
+Selanjutnya pada tahap ini, kita akan baca data-data diatas menggunakan fungsi pandas.read_csv. Hasilnya dapat ditampilkan pada gambar berikut:
+
+![Rincian File Dataset](https://github.com/user-attachments/assets/0870ef20-4978-4d30-a5d6-847d2d6aa956)
+
+Hasil dari gambar diatas merupakan jumlah data dalam file-file dataset film.
+
+Selanjutnya, pada proyek ini, kita hanya menggunakan 2 file csv yaitu ratings_small.csv (ratings) dan movies_metadata.csv (movies). Dari kedua file ini kita akan melihat informasi apa saja yang ada di dalammya.
+
+**1. ratings (ratings_small.csv)**
+
+Berikut merupakan informasi yang ada dalam dataset ratings:
+
+![dataset-ratings](https://github.com/user-attachments/assets/559f75c8-abca-4f8d-a0fa-b4d514bc605c)
+
+Berdasarkan gambar diatas, dataset ratings terdiri dari 100004 baris dan 4 kolom yang dapat dijelaskan sebagai berikut:
 | Variabel                    | Keterangan     |
 | -----------------------     | ------------------------------------------------------------------------- |
 | userId                      | ID unik untuk pengguna yang memberikan penilaian (rating). Ini digunakan untuk mengidentifikasi pengguna secara anonim.  |
@@ -62,9 +84,11 @@ Terdiri dari dari 100.000 rating dari 700 pengguna pada 9.000 film. Total baris 
 | rating | Nilai yang diberikan oleh pengguna untuk film tertentu dengan skala 1 hingga 5, di mana angka yang lebih tinggi menunjukkan penilaian yang lebih positif. |
 | timestamp                   | Waktu ketika penilaian diberikan, direpresentasikan dalam format UNIX timestamp (jumlah detik sejak 1 Januari 1970).   |
 
-**2. movies_metadata.csv**
-Memiliki sebanyak 45466 baris dan 24 Kolom dengan rincian kolom sebagai berikut:
+**2. movies (movies_metadata.csv)**
 
+![dataset-movies](https://github.com/user-attachments/assets/6bebf0ce-2e94-4b35-85e5-e5b858df8f20)
+
+Berdasarkan gambar diatas, dataset movies terdiri dari 100004 baris dan 24 kolom yang dapat dijelaskan sebagai berikut:
 | Variabel                    | Keterangan     |
 | -----------------------     | ------------------------------------------------------------------------- |
 |adult        | Mengindikasikan apakah film tersebut untuk orang dewasa (adult content). Nilainya biasanya True atau False.|
