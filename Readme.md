@@ -66,7 +66,7 @@ Selanjutnya pada tahap ini, kita akan baca data-data diatas menggunakan fungsi p
 
 Hasil dari gambar diatas merupakan jumlah data dalam file-file dataset film.
 
-Pada proyek ini kita hanya menggunakan 2 file csv yaitu ratings_small.csv (ratings) dan movies_metadata.csv (movies). Dari kedua file ini kita akan melihat informasi apa saja yang ada di dalammya.
+Pada proyek ini kita hanya menggunakan 2 file csv yaitu `ratings_small.csv` (variabel `ratings`) dan `movies_metadata.csv` (variabel `movies`). Dari kedua file ini kita akan melihat informasi apa saja yang ada di dalammya.
 
 #### Deskripsi Variabel
 
@@ -122,32 +122,32 @@ Berdasarkan gambar diatas, dataset movies terdiri dari 100004 baris dan 24 kolom
 ####  Data Clean
 Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Setelah data terkumpul ada beberapa langkah yang perlu kita lakukan dalam tahap ini yaitu:
 
-##### Mengambil Fitur Sesuai Kebutuhan
+##### 1. Mengambil Fitur Sesuai Kebutuhan
 Pada pronyek ini, dataset *movies_metadata (movies)* kita hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
 
 ![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a)
 
-##### Melihat Informasi Tipe Data
+##### 2. Melihat Informasi Tipe Data
 Tahap ini kita akan melihat Informsi tipe data pada dataset ratings dan movies yang akan kita gunakan. Selengkapnya dapat dilihat pada gambar berikut.
 
 ![gambar-2](https://github.com/user-attachments/assets/cf300843-0864-47e9-b27e-b056a5ef5cb6)
 
 Dapat dilihat pada informasi dataset variabel  **movies**, 3 fitur kolom dengan tipe data object dan 2 variabel bertipe float64. Selain itu ada perbedaan pada variabel `title`, `vote_average` dan `vote_count` yang memiliki data 45460 dengan variabel id dan genres dengan data 45466. Sedangkan pada informasi dataset variabel **ratings** terdapat 1 fitur kolom dengan tipe data float64 dan 3 fitur kolom dengan tipe data int64.
 
-##### Menghitung Total Dataset
+##### 3. Menghitung Total Dataset
 Pada tahap ini, jumlah variabel dataset movies sebanyak 45466 dan memiliki 5 kolom sedangkan jumlah variabel dataset ratings sebanyak 100004 dan memiliki 4 kolom.
 
-##### Menghitung Total Data Unik
+##### 4. Menghitung Total Data Unik
 Jumlah rincian data unik kita dapat dilihat pada gambar berikut:
 
 ![data_unik](https://github.com/user-attachments/assets/87801017-e92f-42eb-9c1b-2a504604aa3b)
 
 Dapat dilihat bahwa jumlah id dalam film sebanyak 45436 pada movies dan jumlah movieId pada ratings sebanyak 9066.  Sedangkan jumlah pengguna unik pada ratings sebanyak 671. 
 
-##### Menyesuaikan Tipe Data Primary Key dan Foregein Key
+##### 5. Menyesuaikan Tipe Data Primary Key dan Foregein Key
 Pada tahap ini, kita perlu menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, kita perlu menyamakan tipe data tersebut dengan cara menyamakan nama atribut movieId dan tipe data `int64`.
 
-##### Menangani Nilai Kosong (Missing Value)
+##### 6. Menangani Nilai Kosong (Missing Value)
 Pada tap ini kita akan lakukan pengecekan nilai kosong serta menanganinya pada variabel dataset movies dan ratings. Hasilnya dapat dilihat pada gambar berikut:
 
 ![nilai_null_movies](https://github.com/user-attachments/assets/fbf0fcb0-e41e-49a5-8cd7-bf742b4e6190)
@@ -160,26 +160,26 @@ Dari gambar diatas terlihat variabel dataset ratings tidak memiliki nilai null.
 
 Selanjutnya kita hapus jumlah data dengan nilai null, karena sangat sedikit dan tidak signifikan dibandingkan keseluruhan dataset.
 
-##### Menangani Duplikat Data (Duplicated Data)
+##### 7. Menangani Duplikat Data (Duplicated Data)
 Pada tap ini kita akan lakukan pengecekan data ganda serta menanganinya pada variabel dataset movies dan ratings. Setalah dilakukan pengecekan terdapat 28 data ganda pada variabel dataset movies dan tidak ada data ganda pada variabel dataset ratings. Terakhir kita lakukan penghapusan data ganda pada variabel dataset movies.
 
-##### Menangani Outliers
+##### 8. Menangani Outliers
 Pada tahap ini, sebelum kita tangani outlier, kita lihat statistik deskriptif dari dataset variabel df_movies dan ratings kita mengunakan fungsi `describe()`.
 
-1. Variabel movies
+* Variabel movies
    
 ![des_movies](https://github.com/user-attachments/assets/82b83bfb-2c0c-4c82-882b-bb0feda63a01)
 
-2. Variabel ratings
+* Variabel ratings
    
 ![des_rating](https://github.com/user-attachments/assets/3ff035f5-9f5e-4f90-a641-043753e98149)
 
 Berdasarkan tampilan deskriptif dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan `outlier`.
 
-##### Univariate Analysis
+#### Univariate Analysis
 Pada tahap ini kita akan menggunakan grafik untuk menggambarkan distribusi genre dan rating film, serta hubungan antara fitur-fitur dalam dataset.
 
-###### Distribusi Ratings
+###### 1. Distribusi Ratings
 Pada langkah ini kita akan mendistribusi ratings dengan tujuan:
 1. Mengidentifikasi nilai rating yang paling umum diberikan oleh pengguna.
 2. Menilai apakah data rating cenderung condong ke satu nilai (misalnya, lebih banyak rating tinggi atau rendah).
@@ -187,7 +187,7 @@ Pada langkah ini kita akan mendistribusi ratings dengan tujuan:
 Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%, rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%
 
 
-###### Distribusi Gengres
+###### 2. Distribusi Gengres
 Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman. Pada tahap ini kita akan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies Ada beberapa fungsi yang kita pakai yakni:
 * `fillna('[]')`, berfungsi untuk mengisi nilainull atau NaN dalam kolom genres dengan string kosong dalam format list (`[]`).
 * `apply(literal_eval)`, fungsi literal_eval dari pustaka ast untuk mengubah string yang terlihat seperti Python literal menjadi tipe data list.
@@ -200,7 +200,7 @@ Selanjutanya kita ubah setiap elemen dalam daftar (genre) menjadi baris terpisah
 
 Dari grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20243 dan 13137. Sedangkan genre yang lain berada dibawah 10000.
 
-###### Analisis Daftar film dengan skor tertinggi di seluruh rentang film
+###### 3. Analisis Daftar film dengan skor tertinggi di seluruh rentang film
 Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda berdasarkan pentingnya masing-masing komponen. Dalam konteks film, kita perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian (`vote_average`), jumlah suara (`vote_count`), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar.
 Keterangan:
 v = jumlah suara untuk film tertentu (vote_count)
@@ -214,14 +214,14 @@ Hasilnya dapat dilihat pada gambar berikut:
 
 Gambar diatas menunjukan 5 film dengan skor tertinggi yang diberikan oleh pengguna.
 
-###### Analisis Rating Tertinggi
+###### 4. Analisis Rating Tertinggi
 Selanjutnya kita gabungkan dataset df_movies dan ratings dengan fungsi pandas pd.merge dan mencari 10 film dengan rating tertinggi. Alisis rating tertinggi dapat dilihat pada gambar berikut:
 
 ![10-analisis rating](https://github.com/user-attachments/assets/257800b2-4b5e-4ecc-8598-3c679031faca)
 
 Dapat dilihat pada gambar diatas dari 10 rating tertinggi film yang ada, film dengan judul **Terminator 3: Rise of the Machines*** memiliki rating teratas dengan *mean rating* 4.256 dan total rating sebanya 324.
 
-###### Membandingkan Peringkat rata-rata vs Jumlah total peringkat
+###### 4. Membandingkan Peringkat rata-rata vs Jumlah total peringkat
 Pada tahap ini kita akan membandingkan rata-rata rangkin dan total rangking menggunakan joinplot untuk melihat pesebaran data yang dapat dilihat pada gambari dibawah ini:
 
 ![mean vs total rating](https://github.com/user-attachments/assets/336ee099-c9a0-4fbb-b4be-00c80b0048a9)
@@ -242,14 +242,11 @@ Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya pada gambar 
 
 Dari gambar diatas dapat dilihat dataset kita sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`, `vote_average` dan `vote_count`.
 
-## Modeling and Result
-Pada tahap ini ada dua model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Kedua model tersebut dapat dijelaskan sebagai berikut:
+## Data Preparation
+Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning.
 
 ### Content Based Filtering
 Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik `TF-IDF` (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
-
-#### Data Preparation
-Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning.
 
 Berikutnya, kita bisa melanjutkan ke tahap persiapan dengan membuat variabel preparation yang berisi dataframe df_sample_final kemudian mengurutkan berdasarkan movieId. Hasilnya dpat dilihat pada gambar berikut:
 
@@ -273,7 +270,37 @@ Setelah dibentuk matriks, dibuat tabel berisi judul film beserta genrenya berdas
 
 ![tabel_judul_film_genres](https://github.com/user-attachments/assets/8676ab8c-5a8b-4c33-9adc-f4d89ab0ac30)
 
-#### Modeling
+### Collaborative Filtering (CF)
+Pada tahap ini data prerataion CF, Langkah pertama, kita cek dataset kita dengan fungsi `info()`, hasilnya ditampilkan pada gambar berikut:
+
+![sampel_final](https://github.com/user-attachments/assets/f3083afc-7726-40d1-92c9-edd5e6ec6c66)
+
+Dari hasil diatas, terdapat 20000 baris dan 7 kolom dan memiliki 3 tipe data `float64`, 2 tipe data `int64` dan 2 tipe data `object`. Langkah kedua Kedua, kita hapus kolom yang tidak dibutuhkan dalam pelatihan yaitu `genres` dan `title`. Langkah berikutnya kita urutkan berdasarkan kolom `userId` untuk kita masuk pada tahap encoding `userId` dan `movieId`.
+
+#### Encoding userId dan movieId
+Pada tahap ini kita akan lakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
+* Encoding `userId`
+
+![encoding-userId](https://github.com/user-attachments/assets/40500668-535e-4ee3-9380-d77f959e49b6)
+
+* Encoding `movieId`
+
+![encoding_movie_id](https://github.com/user-attachments/assets/879755e6-b238-4d15-839f-d2d8c31dbf41)
+
+Selanjutnya kita ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2256 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
+
+#### Membagi Data untuk Training dan Validasi
+Pada tahap ini kita membagi data training dan data validasi untuk proses pelatihan model. Namun sebelum itu kita perlu mengacak dataset kita sehingga menjadi data yang valid. Hasilnya seperti pada gambar berikut:
+
+![dataset_acak](https://github.com/user-attachments/assets/fcbdae71-655c-43a4-b227-17bc8b13359f)
+
+Selanjutnya kita buat variabel x untuk mencocokkan data user dan Movie menjadi satu value, kemudian variabel y untuk membuat rating dari hasil. Terakhir kita Membagi menjadi `80%` data train dan `20%`` data validasi.
+
+
+## Modeling and Result
+Pada tahap ini ada dua model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Kedua model tersebut dapat dijelaskan sebagai berikut:
+
+### Modeling Content Based Filtering (CBF)
 Pada tahp ini kita gunakan metode `Consine Similarity`,  yang berfungsi mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Pada proyek ini, kita akan gunakan untuk sistem rekomendasi berbasis `Content-Based Filtering` yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), `Cosine similarity` digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai `0` dan `1`. Kalau nilainya `0` maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi.
 
 Langkah pertama kita menghitung cosine similarity pada matrix tf-idf yang dapat dilihat pada gambar berikut:
@@ -293,13 +320,17 @@ Tahap ini kita ambil satu judul film untuk dilakukan pengujian seperti yan terli
 
 5 hasil rekomendasi film dapat dilihat pada gambar berikut:
 
-![film_uji_hasil_5](https://github.com/user-attachments/assets/5fedac3d-2bed-4b59-ba86-137dc2cdde57)
+![Top-N CBF](https://github.com/user-attachments/assets/ff758677-3d68-4aa1-97e5-72f9caf44e96)
 
 Dapat dilihat genre film uji yang kita masukan adalah `Crime`, `Drama`, `Romance`. Pada hasilnya genre ini tersebar di dalam 5 fil yang dihasilkan. Oleh karena itu kita perlu mengukur hasil evalusi modelnya dengan fungsi `metrix precision`.
 
 #### Evaluation
+Padata tah ini kita mengunakan fungsi metrix precision. Presisi: Mengukur seberapa presisi/akurat model.  Rasionya antara positif yang diidentifikasi dengan benar (positif benar) dan semua positif yang diidentifikasi. Metrik presisi mengungkapkan berapa banyak kelas yang diprediksi diberi label dengan benar[7].
+`Precision = #True_Positive / (#True_Positive + #False_Positive)`
 
-### Penerapan Model Collaborative Filtering
+Hasil pengujian diperoleh nilai precision sebesar 90.00%.
+
+### Modeling Collaborative Filtering (CF)
 Pada tahap ini menggunakan pendekatan Model-Based Deep Learning Collaborative Filtering. Metode `Deep Learning Neural Network (DNN)` yang merupakan subkategori dari machine learning yang menggunakan struktur ANN yang sangat dalam, dikenal sebagai deep neural networks. Deep learning melibatkan jaringan saraf dengan banyak lapisan tersembunyi, yang memungkinkan model untuk belajar dan mengenali pola yang sangat kompleks dan abstrak dari data `[2]`.
 
 Pada tahap ini, model menghitung skor kecocokan antara user dan movie teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan movie. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan movie. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan movie. Skor kecocokan ditetapkan dalam skala [`0,1`] dengan fungsi aktivasi sigmoid. Di sini, kita membuat class `RecommenderNe`t dengan `keras Model class`. Kedua kita lakukan proses compile terhadap model. Model ini menggunakan `Binary Crossentropy` untuk menghitung `loss function`, `Adam (Adaptive Moment Estimation)` sebagai `optimizer`, serta Mean Absolute Error(MAE) dan Root Mean Squared Error (RMSE) sebagai metrics evaluation.
@@ -312,61 +343,67 @@ Proses latihan model dapat dilihat pada gambar berikut:
 
 Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749
 
-## Evaluation
-Pada tahap ini, kita menggunakan metrik evaluasi  untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja). Pada tahap ini kita akan lakukan visualisasi metrik dengan teknik Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara keduanya serta tren kesalahan dari waktu ke waktu. Berikut ada rumus dari teknik tersebut.
+#### Penujian Sistem Rekomendasi
+Pada tahap ini kita akan lakukan pengujian terhadap model yang telah dibuat. Sebelumnya, pengguna telah memberi rating pada beberapa film yang telah mereka nonton. Kita menggunakan rating ini untuk membuat rekomendasi film yang mungkin cocok untuk pengguna.
+Berikut adalah Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kesamaan:
+
+![Top-N CF](https://github.com/user-attachments/assets/8277685f-3708-41b5-b1e3-cd91278c3a90)
+
+#### Evaluation
+Pada tahap ini, kita menggunakan metrik evaluasi  untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja). Pada tahap ini kita akan lakukan visualisasi metrik dengan teknik Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). 
+
 1. Mean Absolute Error (MAE)
-   MAE adalah salah satu metode evaluasi yang umum digunakan dalam data science. MAE menghitung rata-rata dari selisih absolut antara nilai prediksi dan nilai aktual.
-   Dengan kata lain, MAE menghitung berapa rata-rata kesalahan absolut dalam prediksi. Semakin kecil nilai MAE, semakin baik kualitas model tersebut.
-   Rumus MAE:
+MAE adalah salah satu metode evaluasi yang umum digunakan dalam data science. MAE menghitung rata-rata dari selisih absolut antara nilai prediksi dan nilai aktual. Dengan kata lain, MAE menghitung berapa rata-rata kesalahan absolut dalam prediksi. Semakin kecil nilai MAE, semakin baik kualitas model tersebut `[3]`.
+
+Rumus MAE:
    
-   ![MAE](https://github.com/user-attachments/assets/0a342837-503b-487a-9dd7-b9f205dc1185)
+![MAE](https://github.com/user-attachments/assets/0a342837-503b-487a-9dd7-b9f205dc1185)
 
-   Dimana:
-   * n adalah jumlah sampel dalam data
-   * y_i adalah nilai aktual
-   * ŷ_i adalah nilai prediksi
-     
-2. Root Mean Squared Error (RMSE)
-   RMSE adalah turunan dari MSE. Seperti namanya, RMSE adalah akar kuadrat dari MSE.
-   RMSE menghitung rata-rata dari selisih kuadrat antara nilai prediksi dan nilai aktual kemudian diambil akar kuadratnya. Semakin kecil nilai RMSE, semakin baik kualitas model tersebut.
-
-   Rumus RMSE:
-   
-   ![RMSE](https://github.com/user-attachments/assets/058da06d-8a58-4cca-b01b-468cdcf4e0e4)
-
-   Dimana:
-   * n adalah jumlah sampel dalam data
-   * y_i adalah nilai aktual
-   * ŷ_i adalah nilai prediksi
-  
-  ### Evaluasi menggunakan Visualisasi Metriks
-  Pada tahap ini kita akana lakukan visualisasi metrik seperti Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja
-  model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara
-  keduanya serta tren kesalahan dari waktu ke waktu `[3]`. Hasil dari kedua metiks tersebut dapat ditampilakn pada gambar dibawah ini:
-
-  * Gambar Visualisasi Metriks MAE
+Dimana:
+* n adalah jumlah sampel dalam data
+* y_i adalah nilai aktual
+* ŷ_i adalah nilai prediksi
     
-   ![metriks-MAE](https://github.com/user-attachments/assets/04a2a29b-b44b-4fde-8396-c1b1652d40ea)
+2. Root Mean Squared Error (RMSE)
+RMSE adalah turunan dari MSE. Seperti namanya, RMSE adalah akar kuadrat dari MSE. RMSE menghitung rata-rata dari selisih kuadrat antara nilai prediksi dan nilai aktual kemudian diambil akar kuadratnya. Semakin kecil nilai RMSE, semakin baik kualitas model tersebut `[3]`.
 
-  Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1383 untuk training dan sedikit diatas 0.1550 untuk validasi.
+Rumus RMSE:
+   
+![RMSE](https://github.com/user-attachments/assets/058da06d-8a58-4cca-b01b-468cdcf4e0e4)
 
-  * Gambar Visualisasi Metriks RMSE
+Dimana:
+* n adalah jumlah sampel dalam data
+* y_i adalah nilai aktual
+* ŷ_i adalah nilai prediksi
+  
+Selanjutnya kita lakukan visualisasi metrik seperti Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara keduanya serta tren kesalahan dari waktu ke waktu `[3]`. 
 
-    ![metriks-RMSE](https://github.com/user-attachments/assets/bd08a600-c4d1-42e9-a681-a61b7ae06262)
+Hasil dari kedua metiks tersebut dapat ditampilakn pada gambar dibawah ini:
 
-  Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1749 untuk training dan sedikit dibawah 0.185 untuk validasi.
+* Gambar Visualisasi Metriks MAE
+    
+![MAE-MAtriks](https://github.com/user-attachments/assets/646ab35b-5fdc-448f-8ac7-0e9572ef5977)
+
+Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1370 untuk training dan sedikit diatas 0.1657 untuk validasi.
+
+* Gambar Visualisasi Metriks RMSE
+
+![RMSE_Matriks](https://github.com/user-attachments/assets/f38d7003-d4b1-4952-b8cf-93dc0d9c51c7)
+
+Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1755 untuk training dan sedikit dibawah 0.221 untuk validasi.
 
 ## Kesimpulan
 Berdasarkan hasil yang diperoleh setelah melakukan proses pengolahan data sampai proses evaaluasi dapat dismpulkan bahwah:
-1. Pengunaan Teknik EDA kita dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20243` dan `13137`, sementara genre yang lain berada dibawah `10000`.
+1. Pengunaan Teknik EDA kita dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%`. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20243` dan `13137`, sementara genre yang lain berada dibawah `10000`. Film dengan judul Terminator `3: Rise of the Machines` memiliki rating teratas dengan mean rating `4.256` dan total rating sebanya `324`. Total rating terting berada diatas `250` sebanyak `5 film`, sedangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai `2 - 4.5` rating.
 2. Dengan preparation data yang sistematis, seperti menangani nilai hilang (missing values), menghapus atau menangani outlier, dan melakukan encoding pada data kategorikal, proses analisis data menjadi lebih efisien dan akurat. Data yang bersih dan siap digunakan akan mengurangi risiko kesalahan dalam model analitik.
-3. Dengan mengunakan metode Content-Based Filtering dapat memberikan rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna, namun masih memiliki kelemahan pada *Cold-Start Problem* (item baru) yang belum pernah direkomendasikan sebelumnya akan sulit untuk diintegrasikan ke dalam sistem.
-4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.2 pada epoh ke-17.
+3. Dengan mengunakan metode Content-Based Filtering dapat memberikan 10 rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna dengan nilai presesion matriks sebesar 90.00%.
+4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1364 dan root_mean_squared_error: 0.1755 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.2 pada epoh ke-17.
 
 ## Daftar Pustaka
 1. D. A. R. Ariantini, A. S. M. Lumenta and A.Jacobus, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016.
-2. Neural Network: Cikal Bakal Revolusi Deep Learning. Tersedia: tautan. Diakses pada: Desember 2024.
-3. Perbedaan MAE, MSE, RMSE, dan MAPE pada Data Science. Tersedia: tautan. Diakses pada: Desember 2024.
+2. Neural Network: Cikal Bakal Revolusi Deep Learning. Tersedia: [Tautan](https://www.dicoding.com/blog/neural-network-cikal-bakal-revolusi-deep-learning/). Diakses pada: Desember 2024.
+3. Perbedaan MAE, MSE, RMSE, dan MAPE pada Data Science. Tersedia: [Tautan]([https://pages.github.com/](https://www.trivusi.web.id/2023/03/perbedaan-mae-mse-rmse-dan-mape.html)). Diakses pada: Desember 2024.
 4. Firmansyah Fataruba, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016. "PENERAPAN METODE COSINE SIMILARITY UNTUK PENGECEKAN KEMIRIPAN JAWABAN UJIAN SISWA", JATI (Jurnal Mahasiswa Teknik Informatika) Vol. 2  No. 2, September 2018.
 5. Nathania, R.A. 2024. Sistem Rekomendasi Film Dengan Collaborative Deep Learning. (Skripsi, Fakultas Teknologi Informasi dan Sains, Universitas Katolik Parahyangan: Bandung).
 6. Salim .E, Paragantha. J, Lauro M, "Perancangan Sistem Rekomendasi Film menggunakan metode Contentbased Filtering" (Paper, Jurusan Teknik Informatika, Fakultas Teknologi Informasi, Universitas Tarumanagara: Jakarta Barat).
+7. Metrik evaluasi. Tersedia: [Tautan](https://learn.microsoft.com/id-id/azure/ai-services/language-service/custom-text-classification/concepts/evaluation-metrics). Diakses pada: Desember 2024.
