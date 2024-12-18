@@ -56,10 +56,7 @@ Kumpulan data ini juga memiliki file yang berisi 26 juta rating dari 270.000 pen
   
 *rating_small.csv*: Bagian dari 100.000 rating dari 700 pengguna pada 9.000 film.
 
-### Exploratory Data Analysis - EDA
-Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Dataset yang digunakan dalam proyek ini yaitu dataset fIlm yang dapat dijelaskan sebagai barikut: 
-
-#### 1. Membaca Dataset
+### Membaca Dataset
 Selanjutnya pada tahap ini, kita akan baca data-data diatas menggunakan fungsi pandas.read_csv. Hasilnya dapat ditampilkan pada gambar berikut:
 
 ![Rincian File Dataset](https://github.com/user-attachments/assets/0870ef20-4978-4d30-a5d6-847d2d6aa956)
@@ -68,12 +65,15 @@ Hasil dari gambar diatas merupakan jumlah data dalam file-file dataset film.
 
 Pada proyek ini kita hanya menggunakan 2 file csv yaitu `ratings_small.csv` (variabel `ratings`) dan `movies_metadata.csv` (variabel `movies`). Dari kedua file ini kita akan melihat informasi apa saja yang ada di dalammya.
 
-#### 2. Univariate Analysis
-Pada tahap ini kita akan menggunakan grafik untuk menggambarkan distribusi genre dan rating film, serta hubungan antara fitur-fitur dalam dataset.
+### Exploratory Data Analysis - EDA
+Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Dataset yang digunakan dalam proyek ini yaitu dataset fIlm yang dapat dijelaskan sebagai barikut: 
+
+####  Univariate Analysis
+Berdasarkan varibel-variabel dataset di ataas, kita cukup mengambil variabel sesuai kebutuhan analisis dan pelatihan model pada proyek ini yakni movies dan rating.
 
 ##### Deskripsi Variabel
 
-**a. ratings (ratings_small.csv)**
+a. ratings (ratings_small.csv)
 Pada langkah ini kita akan menampilkan informasi variabel ratings dan movies dengan fungsi `info`. Pertama kita mulai cek variabel ratings yang hasilnya seperti gambari berikut:
 
 ![dataset-ratings](https://github.com/user-attachments/assets/559f75c8-abca-4f8d-a0fa-b4d514bc605c)
@@ -87,7 +87,7 @@ Berdasarkan gambar diatas, variabel ratings terdiri dari 100004 baris dan 4 kolo
 | rating | Nilai yang diberikan oleh pengguna untuk film tertentu dengan skala 1 hingga 5, di mana angka yang lebih tinggi menunjukkan penilaian yang lebih positif. |
 | timestamp                   | Waktu ketika penilaian diberikan, direpresentasikan dalam format UNIX timestamp (jumlah detik sejak 1 Januari 1970).   |
 
-**b. movies (movies_metadata.csv)**
+b. movies (movies_metadata.csv)
 
 Kedua kita cek variabel movies. Hasilnya sperti gambar berikut:
 
@@ -143,10 +143,17 @@ Jumlah rincian data unik kita dapat dilihat pada gambar berikut:
 
 Dapat dilihat bahwa jumlah id dalam film sebanyak 45436 pada movies dan jumlah movieId pada ratings sebanyak 9066.  Sedangkan jumlah pengguna unik pada ratings sebanyak 671. 
 
-##### Visualisasi Data
-Pada tahap ini akan disajikan informasi secara grafis, sehingga memudahkan pemahaman pola, tren, dan hubungan dalam data. Ada beberapa tahap analisis yang akan dilakukan dalam proyek ini yakni:
+##### Melihat Data Deskriptif pada variabel dataset
+Data deskriptif pada variabel movies dan ratings dapat dilihat pada gambar berikut:
+* variabel movies
+![deskriptif_movies](https://github.com/user-attachments/assets/b597510a-8dd8-4566-b68f-0408ca3ed349)
 
-###### 1. Distribusi Ratings
+* variabel ratings
+![deskriptif_ratings](https://github.com/user-attachments/assets/0f22fcb3-8c3f-4fa3-9d00-c9a72b8f2c2f)
+
+Berdasarkan tampilan deskriptif variabel dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan outlier
+
+##### Distribusi Ratings
 Langkah ini bertujuan untuk:
 1. Mengidentifikasi nilai rating yang paling umum diberikan oleh pengguna.
 2. Menilai apakah data rating cenderung condong ke satu nilai (misalnya, lebih banyak rating tinggi atau rendah).
@@ -158,7 +165,7 @@ Tampilan distribusi rating dapat dilihat pada gambar berikut:
 
 Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%, rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%
 
-###### 2. Distribusi Gengres
+##### Distribusi Gengres
 Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman. Pada tahap ini kita akan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies Ada beberapa fungsi yang kita pakai yakni:
 * `fillna('[]')`, berfungsi untuk mengisi nilainull atau NaN dalam kolom genres dengan string kosong dalam format list (`[]`).
 * `apply(literal_eval)`, fungsi literal_eval dari pustaka ast untuk mengubah string yang terlihat seperti Python literal menjadi tipe data list.
@@ -171,7 +178,7 @@ Selanjutanya kita ubah setiap elemen dalam daftar (genre) menjadi baris terpisah
 
 Dari grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20243 dan 13137. Sedangkan genre yang lain berada dibawah 10000.
 
-###### 3. Analisis Daftar film dengan skor tertinggi di seluruh rentang film
+##### Analisis Daftar film dengan skor tertinggi di seluruh rentang film
 Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda berdasarkan pentingnya masing-masing komponen. Dalam konteks film, kita perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian (`vote_average`), jumlah suara (`vote_count`), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar.
 Keterangan:
 v = jumlah suara untuk film tertentu (vote_count)
@@ -185,14 +192,14 @@ Hasilnya dapat dilihat pada gambar berikut:
 
 Gambar diatas menunjukan 5 film dengan skor tertinggi yang diberikan oleh pengguna.
 
-###### 4. Analisis Rating Tertinggi
+##### Analisis Rating Tertinggi
 Selanjutnya kita gabungkan dataset df_movies dan ratings dengan fungsi pandas pd.merge dan mencari 10 film dengan rating tertinggi. Alisis rating tertinggi dapat dilihat pada gambar berikut:
 
 ![10-analisis rating](https://github.com/user-attachments/assets/257800b2-4b5e-4ecc-8598-3c679031faca)
 
 Dapat dilihat pada gambar diatas dari 10 rating tertinggi film yang ada, film dengan judul **Terminator 3: Rise of the Machines*** memiliki rating teratas dengan *mean rating* 4.256 dan total rating sebanya 324.
 
-###### 4. Membandingkan Peringkat rata-rata vs Jumlah total peringkat
+##### Membandingkan Peringkat rata-rata vs Jumlah total peringkat
 Pada tahap ini kita akan membandingkan rata-rata rangkin dan total rangking menggunakan joinplot untuk melihat pesebaran data yang dapat dilihat pada gambari dibawah ini:
 
 ![mean vs total rating](https://github.com/user-attachments/assets/336ee099-c9a0-4fbb-b4be-00c80b0048a9)
