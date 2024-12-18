@@ -343,12 +343,6 @@ Tahap ini kita ambil satu judul film untuk dilakukan pengujian seperti yan terli
 
 Dapat dilihat genre film uji yang kita masukan adalah `Crime`, `Drama`, `Romance`. Pada hasilnya genre ini tersebar di dalam 5 fil yang dihasilkan. Oleh karena itu kita perlu mengukur hasil evalusi modelnya dengan fungsi `metrix precision`.
 
-#### Evaluation
-Padata tah ini kita mengunakan fungsi metrix precision. Presisi: Mengukur seberapa presisi/akurat model.  Rasionya antara positif yang diidentifikasi dengan benar (positif benar) dan semua positif yang diidentifikasi. Metrik presisi mengungkapkan berapa banyak kelas yang diprediksi diberi label dengan benar[7].
-`Precision = #True_Positive / (#True_Positive + #False_Positive)`
-
-Hasil pengujian diperoleh nilai precision sebesar 90.00%.
-
 ### Modeling Collaborative Filtering (CF)
 Pada tahap ini menggunakan pendekatan Model-Based Deep Learning Collaborative Filtering. Metode `Deep Learning Neural Network (DNN)` yang merupakan subkategori dari machine learning yang menggunakan struktur ANN yang sangat dalam, dikenal sebagai deep neural networks. Deep learning melibatkan jaringan saraf dengan banyak lapisan tersembunyi, yang memungkinkan model untuk belajar dan mengenali pola yang sangat kompleks dan abstrak dari data `[2]`.
 
@@ -368,8 +362,40 @@ Berikut adalah Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kes
 
 ![Top-N CF](https://github.com/user-attachments/assets/8277685f-3708-41b5-b1e3-cd91278c3a90)
 
-#### Evaluation
-Pada tahap ini, kita menggunakan metrik evaluasi  untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja). Pada tahap ini kita akan lakukan visualisasi metrik dengan teknik Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). 
+## Evaluation
+
+### Evaluation Content Based Filtering (CBF)
+Evaluasi CBF merupakan proses untuk menilai atau mengevaluasi kinerja sistem rekomendasi berbasis konten dalam memberikan rekomendasi yang relevan kepada pengguna. Pada proyek ini sistem rekomendasi berbasis konten (CBF) bekerja dengan cara menganalisis atribut rating dari judul film yang disukai oleh pengguna dan kemudian merekomendasikan judul film lain dengan atribut rating yang serupa. Tujuan evaluasi ini adalah untuk mengukur seberapa baik sistem dapat memberikan rekomendasi yang tepat dan memuaskan berdasarkan preferensi atau interaksi pengguna sebelumnya. Fungsi yang digunakan untuk mengukur CBF yakni metriks presisi. Metrik presisi mengungkapkan berapa banyak kelas yang diprediksi diberi label dengan benar (posistif) [7].
+
+Berikut adalah rumus dari metriks presisi[7]:
+
+`Precision = True_Positive / (True_Positive + False_Positive)`
+
+Keterangan:
+* Precision = Hasil Presisi
+* True_Positive = Prediksi benar
+* False_Positive = Prediksi salah
+
+Hasil pengujian menggunakan atribut genre {"Crime", "Drama", dan "Romance"} dengan 10 rekomendasi film yakni:
+
+| | title                   |	genres      | hasil presisis  |
+|-| ----------              | ----------  | -----------  |
+|0|	Schizo	                | Crime, Drama, Romance           | TRUE   |
+|1|	3-Iron	                |   Drama, Romance, Crime         | TRUE   |
+|2|	The Thomas Crown Affair |	Romance, Crime, Thriller, Drama | TRUE   |
+|3|	The Thomas Crown Affair |	Drama, Crime, Romance           | TRUE   |
+|4|	The Little Thief        |	Romance, Drama, Crime           | TRUE   |
+|5|	Tie Me Up! Tie Me Down! |	Comedy, Crime, Drama, Romance   | TRUE   |
+|6|	Prizzi's Honor          |	Romance, Comedy, Crime, Drama   | TRUE   |
+|7|	Young Adam              |	Drama, Thriller, Crime, Romance | TRUE   |
+|8|	Lonely Hearts           |	Drama, Thriller, Crime, Romance | TRUE   |
+|9|	Music Box               |	Crime, Drama, Romance, Thriller | TRUE   |
+
+diperoleh nilai _True_Positive_ = 10 , _False_Positive_ = 0. Jika dimasukan dalam rumus metriks maka nilai precision 10/10 = 1 atau 100.00%.
+
+### Evaluation Collaborative Filtering (CF)
+
+Pada tahap ini akan digunakan metrik evaluasi  untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja) serta visualisasi metrik dengan teknik Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). 
 
 1. Mean Absolute Error (MAE)
 MAE adalah salah satu metode evaluasi yang umum digunakan dalam data science. MAE menghitung rata-rata dari selisih absolut antara nilai prediksi dan nilai aktual. Dengan kata lain, MAE menghitung berapa rata-rata kesalahan absolut dalam prediksi. Semakin kecil nilai MAE, semakin baik kualitas model tersebut `[3]`.
