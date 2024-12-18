@@ -339,7 +339,7 @@ Tahap ini kita ambil satu judul film untuk dilakukan pengujian seperti yan terli
 
 5 hasil rekomendasi film dapat dilihat pada gambar berikut:
 
-![Top-N CBF](https://github.com/user-attachments/assets/ff758677-3d68-4aa1-97e5-72f9caf44e96)
+![top_10_cfb](https://github.com/user-attachments/assets/1f33685a-e3bc-483c-a355-f4c1903c0101)
 
 Dapat dilihat genre film uji yang kita masukan adalah `Crime`, `Drama`, `Romance`. Pada hasilnya genre ini tersebar di dalam 5 fil yang dihasilkan. Oleh karena itu kita perlu mengukur hasil evalusi modelnya dengan fungsi `metrix precision`.
 
