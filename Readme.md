@@ -59,7 +59,7 @@ Kumpulan data ini juga memiliki file yang berisi 26 juta rating dari 270.000 pen
 ### Exploratory Data Analysis - EDA
 Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Dataset yang digunakan dalam proyek ini yaitu dataset fIlm yang dapat dijelaskan sebagai barikut: 
 
-#### Membaca Dataset
+#### 1. Membaca Dataset
 Selanjutnya pada tahap ini, kita akan baca data-data diatas menggunakan fungsi pandas.read_csv. Hasilnya dapat ditampilkan pada gambar berikut:
 
 ![Rincian File Dataset](https://github.com/user-attachments/assets/0870ef20-4978-4d30-a5d6-847d2d6aa956)
@@ -68,9 +68,12 @@ Hasil dari gambar diatas merupakan jumlah data dalam file-file dataset film.
 
 Pada proyek ini kita hanya menggunakan 2 file csv yaitu `ratings_small.csv` (variabel `ratings`) dan `movies_metadata.csv` (variabel `movies`). Dari kedua file ini kita akan melihat informasi apa saja yang ada di dalammya.
 
-#### Deskripsi Variabel
+#### 2. Univariate Analysis
+Pada tahap ini kita akan menggunakan grafik untuk menggambarkan distribusi genre dan rating film, serta hubungan antara fitur-fitur dalam dataset.
 
-**1. ratings (ratings_small.csv)**
+##### Deskripsi Variabel
+
+**a. ratings (ratings_small.csv)**
 Pada langkah ini kita akan menampilkan informasi variabel ratings dan movies dengan fungsi `info`. Pertama kita mulai cek variabel ratings yang hasilnya seperti gambari berikut:
 
 ![dataset-ratings](https://github.com/user-attachments/assets/559f75c8-abca-4f8d-a0fa-b4d514bc605c)
@@ -84,7 +87,7 @@ Berdasarkan gambar diatas, variabel ratings terdiri dari 100004 baris dan 4 kolo
 | rating | Nilai yang diberikan oleh pengguna untuk film tertentu dengan skala 1 hingga 5, di mana angka yang lebih tinggi menunjukkan penilaian yang lebih positif. |
 | timestamp                   | Waktu ketika penilaian diberikan, direpresentasikan dalam format UNIX timestamp (jumlah detik sejak 1 Januari 1970).   |
 
-**2. movies (movies_metadata.csv)**
+**b. movies (movies_metadata.csv)**
 
 Kedua kita cek variabel movies. Hasilnya sperti gambar berikut:
 
@@ -119,73 +122,41 @@ Berdasarkan gambar diatas, dataset movies terdiri dari 100004 baris dan 24 kolom
 |vote_average|Nilai rata-rata yang diberikan oleh pengguna (misalnya dari IMDb atau TMDb) berdasarkan skala tertentu (biasanya 1-10).|
 |vote_count|Jumlah suara atau ulasan yang diberikan untuk film tersebut.|
 
-####  Data Clean
-Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Setelah data terkumpul ada beberapa langkah yang perlu kita lakukan dalam tahap ini yaitu:
-
-##### 1. Mengambil Fitur Sesuai Kebutuhan
-Pada pronyek ini, dataset *movies_metadata (movies)* kita hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
-
-![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a)
-
-##### 2. Melihat Informasi Tipe Data
+##### Melihat Informasi Tipe Data
 Tahap ini kita akan melihat Informsi tipe data pada dataset ratings dan movies yang akan kita gunakan. Selengkapnya dapat dilihat pada gambar berikut.
 
-![gambar-2](https://github.com/user-attachments/assets/cf300843-0864-47e9-b27e-b056a5ef5cb6)
+ * variabel movies
+   ![tipe_data_movies ](https://github.com/user-attachments/assets/5ade6703-b64a-4e3c-8aab-5e5f42965c9f)
 
-Dapat dilihat pada informasi dataset variabel  **movies**, 3 fitur kolom dengan tipe data object dan 2 variabel bertipe float64. Selain itu ada perbedaan pada variabel `title`, `vote_average` dan `vote_count` yang memiliki data 45460 dengan variabel id dan genres dengan data 45466. Sedangkan pada informasi dataset variabel **ratings** terdapat 1 fitur kolom dengan tipe data float64 dan 3 fitur kolom dengan tipe data int64.
+ * variabel ratings
+   ![tipe_data_rating](https://github.com/user-attachments/assets/1da41dcc-34ea-4543-87ca-d983fad448f1)
 
-##### 3. Menghitung Total Dataset
+Dapat dilihat pada informasi dataset **movies** 20 variable dengan tipe data object dan 4 variabel bertipe float64. Sedangkan pada informasi dataset **ratings** terdapat 1 variabel dengan tipe data float64 dan 3 variable dengan tipe data int64.
+
+##### Menghitung Total Dataset
 Pada tahap ini, jumlah variabel dataset movies sebanyak 45466 dan memiliki 5 kolom sedangkan jumlah variabel dataset ratings sebanyak 100004 dan memiliki 4 kolom.
 
-##### 4. Menghitung Total Data Unik
+##### Menghitung Total Data Unik
 Jumlah rincian data unik kita dapat dilihat pada gambar berikut:
 
 ![data_unik](https://github.com/user-attachments/assets/87801017-e92f-42eb-9c1b-2a504604aa3b)
 
 Dapat dilihat bahwa jumlah id dalam film sebanyak 45436 pada movies dan jumlah movieId pada ratings sebanyak 9066.  Sedangkan jumlah pengguna unik pada ratings sebanyak 671. 
 
-##### 5. Menyesuaikan Tipe Data Primary Key dan Foregein Key
-Pada tahap ini, kita perlu menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, kita perlu menyamakan tipe data tersebut dengan cara menyamakan nama atribut movieId dan tipe data `int64`.
-
-##### 6. Menangani Nilai Kosong (Missing Value)
-Pada tap ini kita akan lakukan pengecekan nilai kosong serta menanganinya pada variabel dataset movies dan ratings. Hasilnya dapat dilihat pada gambar berikut:
-
-![nilai_null_movies](https://github.com/user-attachments/assets/fbf0fcb0-e41e-49a5-8cd7-bf742b4e6190)
-
-Dari gambar diatas, nilai null terdapat pada variabel `title`, `vote_average` dan `vote_count` memiliki nilai null = 6.
-
-![nilai_null_ratings](https://github.com/user-attachments/assets/5391c467-523e-433b-9fe6-97935d2ac2d5)
-
-Dari gambar diatas terlihat variabel dataset ratings tidak memiliki nilai null.
-
-Selanjutnya kita hapus jumlah data dengan nilai null, karena sangat sedikit dan tidak signifikan dibandingkan keseluruhan dataset.
-
-##### 7. Menangani Duplikat Data (Duplicated Data)
-Pada tap ini kita akan lakukan pengecekan data ganda serta menanganinya pada variabel dataset movies dan ratings. Setalah dilakukan pengecekan terdapat 28 data ganda pada variabel dataset movies dan tidak ada data ganda pada variabel dataset ratings. Terakhir kita lakukan penghapusan data ganda pada variabel dataset movies.
-
-##### 8. Menangani Outliers
-Pada tahap ini, sebelum kita tangani outlier, kita lihat statistik deskriptif dari dataset variabel df_movies dan ratings kita mengunakan fungsi `describe()`.
-
-* Variabel movies
-   
-![des_movies](https://github.com/user-attachments/assets/82b83bfb-2c0c-4c82-882b-bb0feda63a01)
-
-* Variabel ratings
-   
-![des_rating](https://github.com/user-attachments/assets/3ff035f5-9f5e-4f90-a641-043753e98149)
-
-Berdasarkan tampilan deskriptif dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan `outlier`.
-
-#### Univariate Analysis
-Pada tahap ini kita akan menggunakan grafik untuk menggambarkan distribusi genre dan rating film, serta hubungan antara fitur-fitur dalam dataset.
+##### Visualisasi Data
+Pada tahap ini akan disajikan informasi secara grafis, sehingga memudahkan pemahaman pola, tren, dan hubungan dalam data. Ada beberapa tahap analisis yang akan dilakukan dalam proyek ini yakni:
 
 ###### 1. Distribusi Ratings
-Pada langkah ini kita akan mendistribusi ratings dengan tujuan:
+Langkah ini bertujuan untuk:
 1. Mengidentifikasi nilai rating yang paling umum diberikan oleh pengguna.
 2. Menilai apakah data rating cenderung condong ke satu nilai (misalnya, lebih banyak rating tinggi atau rendah).
 3. Membantu memahami pola preferensi pengguna.
-Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%, rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%
 
+Tampilan distribusi rating dapat dilihat pada gambar berikut:
+
+![distribusi-rating](https://github.com/user-attachments/assets/2d61d465-c467-4d81-8be9-f91d5297a698)
+
+Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%, rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%
 
 ###### 2. Distribusi Gengres
 Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman. Pada tahap ini kita akan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies Ada beberapa fungsi yang kita pakai yakni:
@@ -228,12 +199,56 @@ Pada tahap ini kita akan membandingkan rata-rata rangkin dan total rangking meng
 
 Berdasarkan grafik pesebaran data diatas total rating terting berada diatas 250 sebanyak 5 film, sadangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai 2 - 4.5 rating.
 
-#### Data Preprocessing
+## Data Preparation
+Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning. 
+
+###  Data Clean
+Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Setelah data terkumpul ada beberapa langkah yang perlu kita lakukan dalam tahap ini yaitu:
+
+#### 1. Mengambil Fitur Sesuai Kebutuhan
+Pada pronyek ini, dataset *movies_metadata (movies)* kita hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
+
+![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a) 
+
+#### 2. Menyesuaikan Tipe Data Primary Key dan Foregein Key
+Pada tahap ini, kita perlu menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, kita perlu menyamakan tipe data tersebut dengan cara menyamakan nama atribut movieId dan tipe data `int64`.
+
+#### 3. Menangani Nilai Kosong (Missing Value)
+Pada tap ini kita akan lakukan pengecekan nilai kosong serta menanganinya pada variabel dataset movies dan ratings. Hasilnya dapat dilihat pada gambar berikut:
+
+![nilai_null_movies](https://github.com/user-attachments/assets/fbf0fcb0-e41e-49a5-8cd7-bf742b4e6190)
+
+Dari gambar diatas, nilai null terdapat pada variabel `title`, `vote_average` dan `vote_count` memiliki nilai null = 6.
+
+![nilai_null_ratings](https://github.com/user-attachments/assets/5391c467-523e-433b-9fe6-97935d2ac2d5)
+
+Dari gambar diatas terlihat variabel dataset ratings tidak memiliki nilai null.
+
+Selanjutnya kita hapus jumlah data dengan nilai null, karena sangat sedikit dan tidak signifikan dibandingkan keseluruhan dataset.
+
+#### 4. Menangani Duplikat Data (Duplicated Data)
+Pada tap ini kita akan lakukan pengecekan data ganda serta menanganinya pada variabel dataset movies dan ratings. Setalah dilakukan pengecekan terdapat 28 data ganda pada variabel dataset movies dan tidak ada data ganda pada variabel dataset ratings. Terakhir kita lakukan penghapusan data ganda pada variabel dataset movies.
+
+#### 5. Menangani Outliers
+Pada tahap ini, sebelum kita tangani outlier, kita lihat statistik deskriptif dari dataset variabel df_movies dan ratings kita mengunakan fungsi `describe()`.
+
+* Variabel movies
+   
+![des_movies](https://github.com/user-attachments/assets/82b83bfb-2c0c-4c82-882b-bb0feda63a01)
+
+* Variabel ratings
+   
+![des_rating](https://github.com/user-attachments/assets/3ff035f5-9f5e-4f90-a641-043753e98149)
+
+Berdasarkan tampilan deskriptif dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan `outlier`.
+
+### Data Preprocesing
 Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini adalah sebagai berikut:
 * Mengurutkan pengguna berdasarkan ID Pengguna
 * Mengubah fitur genres movie ke bentuk list
 * Melakukan penggabungan dataset ratings dan movies
 * Mengambil Dataset sesuai kebutuhan
+
 Pada proyek ini, data yang diambil sebanyak **20000 data** dari gabungan dataset `movies` dan `ratings` dengan teknik sampling menggunakan fungsi `shuffle` dari library `sklearn.utils` untuk mengambil data secara acak dataset besar untuk mempermudah pengolahan dan mencegah `crash`.
 Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya pada gambar berikut:
 
@@ -241,9 +256,6 @@ Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya pada gambar 
 
 
 Dari gambar diatas dapat dilihat dataset kita sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`, `vote_average` dan `vote_count`.
-
-## Data Preparation
-Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning.
 
 ### Content Based Filtering
 Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik `TF-IDF` (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
