@@ -57,19 +57,19 @@ Kumpulan data ini juga memiliki file yang berisi 26 juta rating dari 270.000 pen
 *rating_small.csv*: Bagian dari 100.000 rating dari 700 pengguna pada 9.000 film.
 
 ### Membaca Dataset
-Selanjutnya pada tahap ini, kita akan baca data-data diatas menggunakan fungsi pandas.read_csv. Hasilnya dapat ditampilkan pada gambar berikut:
+Selanjutnya pada tahap ini dataset diatas akan disimpan pada variabel menggunakan fungsi pandas.read_csv. Hasilnya dapat ditampilkan pada gambar berikut:
 
 ![Rincian File Dataset](https://github.com/user-attachments/assets/0870ef20-4978-4d30-a5d6-847d2d6aa956)
 
 Hasil dari gambar diatas merupakan jumlah data dalam file-file dataset film.
 
-Pada proyek ini kita hanya menggunakan 2 file csv yaitu `ratings_small.csv` (variabel `ratings`) dan `movies_metadata.csv` (variabel `movies`). Dari kedua file ini kita akan melihat informasi apa saja yang ada di dalammya.
+Pada proyek ini, hanya menggunakan 2 file csv yaitu `ratings_small.csv` (variabel `ratings`) dan `movies_metadata.csv` (variabel `movies`). 
 
 ### Exploratory Data Analysis - EDA
 Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Dataset yang digunakan dalam proyek ini yaitu dataset fIlm yang dapat dijelaskan sebagai barikut: 
 
 #### Univariate Analysis
-Berdasarkan varibel-variabel dataset di ataas, kita cukup mengambil variabel sesuai kebutuhan analisis dan pelatihan model pada proyek ini yakni movies dan rating.
+Pada tahap ini, akan dialkukan analisis statistik yang melibatkan variabel movies dan ratings untuk melihat distribusi, pola, dan karakteristik data tersebut serta menggunakan grafik untuk menggambarkan distribusi genre dan rating film, serta hubungan antara fitur-fitur dalam dataset.
 
 ##### Deskripsi Variabel
 
