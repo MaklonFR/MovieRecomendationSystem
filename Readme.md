@@ -74,7 +74,7 @@ Pada tahap ini, akan dialkukan analisis statistik yang melibatkan variabel movie
 ##### Deskripsi Variabel
 
 a. ratings (ratings_small.csv)
-Pada langkah ini kita akan menampilkan informasi variabel ratings dan movies dengan fungsi `info`. Pertama kita mulai cek variabel ratings yang hasilnya seperti gambari berikut:
+Deskripsi variabel ratings dapat dilihat pada gambari berikut:
 
 ![dataset-ratings](https://github.com/user-attachments/assets/559f75c8-abca-4f8d-a0fa-b4d514bc605c)
 
@@ -89,7 +89,7 @@ Berdasarkan gambar diatas, variabel ratings terdiri dari 100004 baris dan 4 kolo
 
 b. movies (movies_metadata.csv)
 
-Kedua kita cek variabel movies. Hasilnya sperti gambar berikut:
+Deskripsi variabel movies dapat dilihat pada gambari berikut:
 
 ![dataset-movies](https://github.com/user-attachments/assets/6bebf0ce-2e94-4b35-85e5-e5b858df8f20)
 
@@ -123,7 +123,7 @@ Berdasarkan gambar diatas, dataset movies terdiri dari 100004 baris dan 24 kolom
 |vote_count|Jumlah suara atau ulasan yang diberikan untuk film tersebut.|
 
 ##### Melihat Informasi Tipe Data
-Tahap ini kita akan melihat Informsi tipe data pada dataset ratings dan movies yang akan kita gunakan. Selengkapnya dapat dilihat pada gambar berikut.
+Infromasi dari tipe data variabel dapat dilihat pada gambar berikut:
 
  * variabel movies
    ![tipe_data_movies ](https://github.com/user-attachments/assets/5ade6703-b64a-4e3c-8aab-5e5f42965c9f)
@@ -137,7 +137,7 @@ Dapat dilihat pada informasi dataset **movies** 20 variable dengan tipe data obj
 Pada tahap ini, jumlah variabel dataset movies sebanyak 45466 dan memiliki 5 kolom sedangkan jumlah variabel dataset ratings sebanyak 100004 dan memiliki 4 kolom.
 
 ##### Menghitung Total Data Unik
-Jumlah rincian data unik kita dapat dilihat pada gambar berikut:
+Jumlah rincian data unik dapat dilihat pada gambar berikut:
 
 ![data_unik](https://github.com/user-attachments/assets/87801017-e92f-42eb-9c1b-2a504604aa3b)
 
@@ -166,20 +166,20 @@ Tampilan distribusi rating dapat dilihat pada gambar berikut:
 Berdasarkan diagram plot rating diatas, dapat dilihat bahwa nilai ratings paling umum diberikan pengguna adalah rating 4.0 dengan presentasi 28.7%, rating 3.0 dengan presentasi 20.1%, rating 5.0 dengan prestansi 15.1%. Sedangkan nilai rating yang lain berada dibawah pada presentasi 12.0%
 
 ##### Distribusi Gengres
-Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman. Pada tahap ini kita akan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies Ada beberapa fungsi yang kita pakai yakni:
+Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena membantu memahami preferensi pengguna dan pola konsumsi film. Pada proyek ini menggunakan metode visualisasi Data dalam menampilkan grafik batang yang menggambarkan proporsi masing-masing genre secara visual, sehingga memudahkan pemahaman. Pada tahap ini akan dilakukan membersihkan, memproses, dan menormalkan data dalam kolom genres pada DataFrame df_movies Ada beberapa fungsi yang dipakai yakni:
 * `fillna('[]')`, berfungsi untuk mengisi nilainull atau NaN dalam kolom genres dengan string kosong dalam format list (`[]`).
 * `apply(literal_eval)`, fungsi literal_eval dari pustaka ast untuk mengubah string yang terlihat seperti Python literal menjadi tipe data list.
 * `apply(lambda x: [i['name'] for i in x] if isinstance(x, list) else []`, fungsi lambda ini memproses setiap nilai dalam kolom genres: Jika nilai adalah sebuah daftar
 * `(isinstance(x, list))`, maka ambil nilai dari kunci name untuk setiap elemen. Jika nilai bukan daftar, mengembalikan daftar kosong (`[]`).
     
-Selanjutanya kita ubah setiap elemen dalam daftar (genre) menjadi baris terpisah dengan fungsi `explode()`, kemudian menghitung jumlah kemunculan setiap genre dengan fungsi `value_counts()` dan terakhir kita membuat diagram batang untuk menampilkan distribusi genre dengan plot bar `plot(kind='bar')`. Langkah pertama kita buat variabel dataframe baru untuk melakukan analisis visualisasi data. Kemudian kita konversi fitur(variabel) genres ke dalam bentuk list sehingga dapat dianalisi. Berikut adalah gambar distribrusi genres menggunakan grafik bar.
+Selanjutanya, ubah setiap elemen dalam daftar (genre) menjadi baris terpisah dengan fungsi `explode()`, kemudian menghitung jumlah kemunculan setiap genre dengan fungsi `value_counts()` dan terakhir membuat diagram batang untuk menampilkan distribusi genre dengan plot bar `plot(kind='bar')`. Langkah pertama, buat variabel dataframe baru untuk melakukan analisis visualisasi data. Kemudian konversi fitur(variabel) genres ke dalam bentuk list sehingga dapat dianalisi. Berikut adalah gambar distribrusi genres menggunakan grafik bar.
 
 ![genres_distribusi](https://github.com/user-attachments/assets/119090a5-1781-4afa-bb8f-041d7c4170b0)
 
 Dari gambar grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20265 dan 13182. Sedangkan genre yang lain berada dibawah 10000. Terlihat juga ada 12 genre dengan jumlah 1.
 
 ##### Analisis Daftar film dengan skor tertinggi di seluruh rentang film
-Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda berdasarkan pentingnya masing-masing komponen. Dalam konteks film, kita perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian (`vote_average`), jumlah suara (`vote_count`), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar.
+Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda berdasarkan pentingnya masing-masing komponen. Dalam konteks film, perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian (`vote_average`), jumlah suara (`vote_count`), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar.
 Keterangan:
 v = jumlah suara untuk film tertentu (vote_count)
 m = jumlah suara minimum untuk masuk ke daftar (threshold)
@@ -193,14 +193,14 @@ Hasilnya dapat dilihat pada gambar berikut:
 Gambar diatas menunjukan 5 film dengan skor tertinggi yang diberikan oleh pengguna. Dapat dilihat film dengan judul _Dilwale Dulhania Le Jayenge_	memiliki skor tertiggi yaitu 8.929668.
 
 ##### Analisis Rating Tertinggi
-Selanjutnya kita gabungkan dataset df_movies dan ratings dengan fungsi pandas pd.merge dan mencari 10 film dengan rating tertinggi. Alisis rating tertinggi dapat dilihat pada gambar berikut:
+Selanjutnya gabungkan dataset df_movies dan ratings dengan fungsi pandas `pd.merge` dan mencari 10 film dengan rating tertinggi. Alisis rating tertinggi dapat dilihat pada gambar berikut:
 
 ![10-analisis rating](https://github.com/user-attachments/assets/257800b2-4b5e-4ecc-8598-3c679031faca)
 
 Dapat dilihat pada gambar diatas dari 10 rating tertinggi film yang ada, film dengan judul _Terminator 3: Rise of the Machines_ memiliki rating teratas dengan *mean rating* 4.256 dan total rating sebanyak 324.
 
 ##### Membandingkan Peringkat rata-rata vs Jumlah total peringkat
-Pada tahap ini kita akan membandingkan rata-rata rangkin dan total rangking menggunakan joinplot untuk melihat pesebaran data yang dapat dilihat pada gambari dibawah ini:
+Pada tahap ini akan dibandingkan rata-rata rangkin dan total rangking menggunakan `joinplot` untuk melihat pesebaran data yang dapat dilihat pada gambari dibawah ini:
 
 ![mean vs total rating](https://github.com/user-attachments/assets/336ee099-c9a0-4fbb-b4be-00c80b0048a9)
 
@@ -210,18 +210,18 @@ Berdasarkan grafik pesebaran data diatas total rating terting berada diatas 250 
 Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning. 
 
 ###  Data Clean
-Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Setelah data terkumpul ada beberapa langkah yang perlu kita lakukan dalam tahap ini yaitu:
+Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Setelah data terkumpul ada beberapa langkah yang perlu lakukan dalam tahap ini yaitu:
 
 #### 1. Mengambil Fitur Sesuai Kebutuhan
-Pada pronyek ini, dataset *movies_metadata (movies)* kita hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
+Pada pronyek ini, dataset *movies_metadata (movies)*  hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
 
 ![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a) 
 
 #### 2. Menyesuaikan Tipe Data Primary Key dan Foregein Key
-Pada tahap ini, kita perlu menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, kita perlu menyamakan tipe data tersebut dengan cara menyamakan nama atribut movieId dan tipe data `int64`.
+Pada tahap ini, perlu menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, perlu menyamakan tipe data tersebut dengan cara menyamakan nama atribut movieId dan tipe data `int64`.
 
 #### 3. Menangani Nilai Kosong (Missing Value)
-Pada tap ini kita akan lakukan pengecekan nilai kosong serta menanganinya pada variabel dataset movies dan ratings. Hasilnya dapat dilihat pada gambar berikut:
+Pada tahap ini, akan dilakukan pengecekan nilai kosong serta menanganinya pada variabel dataset movies dan ratings. Hasilnya dapat dilihat pada gambar berikut:
 
 ![nilai_null_movies](https://github.com/user-attachments/assets/fbf0fcb0-e41e-49a5-8cd7-bf742b4e6190)
 
@@ -231,13 +231,13 @@ Dari gambar diatas, nilai null terdapat pada variabel `title`, `vote_average` da
 
 Dari gambar diatas terlihat variabel dataset ratings tidak memiliki nilai null.
 
-Selanjutnya kita hapus jumlah data dengan nilai null, karena sangat sedikit dan tidak signifikan dibandingkan keseluruhan dataset.
+Selanjutnya hapus jumlah data dengan nilai null, karena sangat sedikit dan tidak signifikan dibandingkan keseluruhan dataset.
 
 #### 4. Menangani Duplikat Data (Duplicated Data)
-Pada tap ini kita akan lakukan pengecekan data ganda serta menanganinya pada variabel dataset movies dan ratings. Setalah dilakukan pengecekan terdapat 28 data ganda pada variabel dataset movies dan tidak ada data ganda pada variabel dataset ratings. Terakhir kita lakukan penghapusan data ganda pada variabel dataset movies.
+Pada tap ini, akan dlakukan pengecekan data ganda serta menanganinya pada variabel dataset movies dan ratings. Setalah dilakukan pengecekan terdapat 28 data ganda pada variabel dataset movies dan tidak ada data ganda pada variabel dataset ratings. Terakhir lakukan penghapusan data ganda pada variabel dataset movies.
 
 #### 5. Menangani Outliers
-Pada tahap ini, sebelum kita tangani outlier, kita lihat statistik deskriptif dari dataset variabel df_movies dan ratings kita mengunakan fungsi `describe()`.
+Pada tahap ini, akan diperlihatkan statistik deskriptif dari dataset variabel df_movies dan ratings mengunakan fungsi `describe()`.
 
 * Variabel movies
    
@@ -261,23 +261,23 @@ Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara ef
 
   ![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
 
-  Dari gambar diatas dapat dilihat dataset kita sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`,
+  Dari gambar diatas dapat dilihat dataset sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`,
   `vote_average` dan `vote_count`.
 
 ### Content Based Filtering
 Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik `TF-IDF` (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
 
-Berikutnya, kita bisa melanjutkan ke tahap persiapan dengan membuat variabel preparation yang berisi dataframe df_sample_final kemudian mengurutkan berdasarkan movieId. Hasilnya dpat dilihat pada gambar berikut:
+Berikutnya, lanjutkan ke tahap persiapan dengan membuat variabel preparation yang berisi dataframe df_sample_final kemudian mengurutkan berdasarkan movieId. Hasilnya dpat dilihat pada gambar berikut:
 
 ![preparation_cbf](https://github.com/user-attachments/assets/d872735a-8eb3-4dee-b6b3-914a7ce2fc9e)
 
-Selanjutnya, kita perlu melakukan konversi data series menjadi list. Dalam hal ini, kita menggunakan fungsi `tolist()` dari library `numpy`. Setelah konversi dilakukan diperoleh variabel `movieId`, `movie_name` dan `movie_genres` dengan jumlah masing-masing sebanyak 2209.
+Selanjutnya, lakukan konversi data series menjadi list. Dalam hal ini, menggunakan fungsi `tolist()` dari library `numpy`. Setelah konversi dilakukan diperoleh variabel `movieId`, `movie_name` dan `movie_genres` dengan jumlah masing-masing sebanyak 2209.
 
-Tahap terakhir, kita akan membuat dictionary untuk menentukan pasangan `key-value` pada data `movie_id`, `movie_name` dan `movie_genres` yang telah kita siapkan sebelumnya. Hasilnya dapat dilihat pada gambar berikut:
+Tahap terakhir, membuat dictionary untuk menentukan pasangan `key-value` pada data `movie_id`, `movie_name` dan `movie_genres` yang telah siapkan sebelumnya. Hasilnya dapat dilihat pada gambar berikut:
 
 ![movie_new](https://github.com/user-attachments/assets/9afd1e83-3722-4c90-aa02-d3d79ba3f915)
 
-Selanjutnya langkah berikut kita gunakan fungsi `TfidfVectorizer` untuk mengkonversi `genres`. Namun sebelum itu genres perlu kita konversi dari list ke siting akar dapay diproses.
+Selanjutnya, gunakan fungsi `TfidfVectorizer` untuk mengkonversi `genres`. Namun sebelum itu genres perlu dikonversi dari list ke siting akar dapay diproses.
 
 ![TfidfVectorizer_Genres](https://github.com/user-attachments/assets/0d44dabc-7156-438c-9d5f-51266a1a0a7e)
 
@@ -290,14 +290,14 @@ Setelah dibentuk matriks, dibuat tabel berisi judul film beserta genrenya berdas
 ![tabel_judul_film_genres](https://github.com/user-attachments/assets/8676ab8c-5a8b-4c33-9adc-f4d89ab0ac30)
 
 ### Collaborative Filtering (CF)
-Pada tahap ini data prerataion CF, Langkah pertama, kita cek dataset kita dengan fungsi `info()`, hasilnya ditampilkan pada gambar berikut:
+Pada tahap ini data prerataion CF, Langkah pertama, cek dataset dengan fungsi `info()`, hasilnya ditampilkan pada gambar berikut:
 
 ![sampel_final](https://github.com/user-attachments/assets/f3083afc-7726-40d1-92c9-edd5e6ec6c66)
 
-Dari hasil diatas, terdapat 20000 baris dan 7 kolom dan memiliki 3 tipe data `float64`, 2 tipe data `int64` dan 2 tipe data `object`. Langkah kedua Kedua, kita hapus kolom yang tidak dibutuhkan dalam pelatihan yaitu `genres` dan `title`. Langkah berikutnya kita urutkan berdasarkan kolom `userId` untuk kita masuk pada tahap encoding `userId` dan `movieId`.
+Dari hasil diatas, terdapat 20000 baris dan 7 kolom dan memiliki 3 tipe data `float64`, 2 tipe data `int64` dan 2 tipe data `object`. Langkah kedua Kedua, hapus kolom yang tidak dibutuhkan dalam pelatihan yaitu `genres` dan `title`. Langkah berikutnya, urutkan berdasarkan kolom `userId` untuk  masuk pada tahap encoding `userId` dan `movieId`.
 
 #### Encoding userId dan movieId
-Pada tahap ini kita akan lakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
+Pada tahap ini, akan dilakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
 * Encoding `userId`
 
 ![encoding-userId](https://github.com/user-attachments/assets/40500668-535e-4ee3-9380-d77f959e49b6)
@@ -306,49 +306,49 @@ Pada tahap ini kita akan lakukan encoding pada `userId` dan `movieId`. Hasilnya 
 
 ![encoding_movie_id](https://github.com/user-attachments/assets/879755e6-b238-4d15-839f-d2d8c31dbf41)
 
-Selanjutnya kita ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2256 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
+Selanjutnya ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2256 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
 
 #### Membagi Data untuk Training dan Validasi
-Pada tahap ini kita membagi data training dan data validasi untuk proses pelatihan model. Namun sebelum itu kita perlu mengacak dataset kita sehingga menjadi data yang valid. Hasilnya seperti pada gambar berikut:
+Pada tahap ini, data training dan data validasi dibagi untuk proses pelatihan model. Namun sebelum itu, perlu mengacak dataset sehingga menjadi data yang valid. Hasilnya seperti pada gambar berikut:
 
 ![dataset_acak](https://github.com/user-attachments/assets/fcbdae71-655c-43a4-b227-17bc8b13359f)
 
-Selanjutnya kita buat variabel x untuk mencocokkan data user dan Movie menjadi satu value, kemudian variabel y untuk membuat rating dari hasil. Terakhir kita Membagi menjadi `80%` data train dan `20%`` data validasi.
+Selanjutnya, buat variabel x untuk mencocokkan data user dan Movie menjadi satu value, kemudian variabel y untuk membuat rating dari hasil. Terakhir,  bagi menjadi `80%` data train dan `20%`` data validasi.
 
 
 ## Modeling and Result
 Pada tahap ini ada dua model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Kedua model tersebut dapat dijelaskan sebagai berikut:
 
 ### Modeling Content Based Filtering (CBF)
-Pada tahp ini kita gunakan metode `Consine Similarity`,  yang berfungsi mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Pada proyek ini, kita akan gunakan untuk sistem rekomendasi berbasis `Content-Based Filtering` yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), `Cosine similarity` digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai `0` dan `1`. Kalau nilainya `0` maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi.
+Pada proyek ini, metode yang digunakan adalah `Consine Similarity`,  yang berfungsi mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Metode ini digunakan untuk sistem rekomendasi berbasis `Content-Based Filtering` yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), `Cosine similarity` digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai `0` dan `1`. Kalau nilainya `0` maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi.
 
-Langkah pertama kita menghitung cosine similarity pada matrix tf-idf yang dapat dilihat pada gambar berikut:
+Langkah pertama hitung `cosine similarity` pada matrix `tf-idf` yang dapat dilihat pada gambar berikut:
 
 ![consimlirity_mat](https://github.com/user-attachments/assets/eaac13f1-722e-4bda-9cf9-533d3eca9c7b)
 
-Langkah kedua kita lihat hasil cosine similarity pada matrix tf-idf anta judul film yang mirip berdasarkan genre.
+Langkah kedua, lihat hasil cosine similarity pada matrix tf-idf anta judul film yang mirip berdasarkan genre.
 
 ![tampil_similirity_film](https://github.com/user-attachments/assets/d8fbc1b2-47c3-46db-b31a-562ae0122d28)
 
-Selanjutnya kita buat fungsi rekomendasi film berdasarkan kemiripan genre dengan menerapkan fungsi Top-N rekokemendasi serta menguji dan mengevaluasi model yang dibuat.
+Selanjutnya, buat fungsi rekomendasi film berdasarkan kemiripan genre dengan menerapkan fungsi Top-N rekokemendasi serta menguji dan mengevaluasi model yang dibuat.
 
 #### Pengujian Sistem Rekomendasi
-Tahap ini kita ambil satu judul film untuk dilakukan pengujian seperti yan terlihat pada gambar berikut:
+Pada proses pengujian akan diambil satu judul film untuk dilakukan pengujian seperti yan terlihat pada gambar berikut:
 
 ![film_uji](https://github.com/user-attachments/assets/272fca27-4807-4b62-81cc-0fc62957413d)
 
-5 hasil rekomendasi film dapat dilihat pada gambar berikut:
+10 hasil rekomendasi film dapat dilihat pada gambar berikut:
 
 ![top_10_cfb](https://github.com/user-attachments/assets/1f33685a-e3bc-483c-a355-f4c1903c0101)
 
-Dapat dilihat genre film uji yang kita masukan adalah `Crime`, `Drama`, `Romance`. Pada hasilnya genre ini tersebar di dalam 5 fil yang dihasilkan. Oleh karena itu kita perlu mengukur hasil evalusi modelnya dengan fungsi `metrix precision`.
+Dapat dilihat genre film uji yang dimasukan adalah `Crime`, `Drama`, `Romance`. Hasilnya genre ini tersebar di dalam 10 judul film yang memiliki kesaaman genre.
 
 ### Modeling Collaborative Filtering (CF)
 Pada tahap ini menggunakan pendekatan Model-Based Deep Learning Collaborative Filtering. Metode `Deep Learning Neural Network (DNN)` yang merupakan subkategori dari machine learning yang menggunakan struktur ANN yang sangat dalam, dikenal sebagai deep neural networks. Deep learning melibatkan jaringan saraf dengan banyak lapisan tersembunyi, yang memungkinkan model untuk belajar dan mengenali pola yang sangat kompleks dan abstrak dari data `[2]`.
 
-Pada tahap ini, model menghitung skor kecocokan antara user dan movie teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan movie. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan movie. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan movie. Skor kecocokan ditetapkan dalam skala [`0,1`] dengan fungsi aktivasi sigmoid. Di sini, kita membuat class `RecommenderNe`t dengan `keras Model class`. Kedua kita lakukan proses compile terhadap model. Model ini menggunakan `Binary Crossentropy` untuk menghitung `loss function`, `Adam (Adaptive Moment Estimation)` sebagai `optimizer`, serta Mean Absolute Error(MAE) dan Root Mean Squared Error (RMSE) sebagai metrics evaluation.
+Pada tahap ini, model menghitung skor kecocokan antara user dan movie teknik embedding. Pertama, dilakukan proses embedding terhadap data user dan movie. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan movie. Selain itu, ditambahkan bias untuk setiap user dan movie. Skor kecocokan ditetapkan dalam skala [`0,1`] dengan fungsi aktivasi sigmoid. Di sini, dibuatkan class `RecommenderNe`t dengan `keras Model class`. Kedua, lakukan proses compile terhadap model. Model ini menggunakan `Binary Crossentropy` untuk menghitung `loss function`, `Adam (Adaptive Moment Estimation)` sebagai `optimizer`, serta Mean Absolute Error(MAE) dan Root Mean Squared Error (RMSE) sebagai metrics evaluation.
 
-Langkah berikutnya, mulailah proses training. Pada proses ini kita gunakan fungsi callbacks, dimana jika kinerja model tidak mengalami keanaikan maka pelatiahan dihentikan. Pada proses training parameter yang digunakan yakni `batch_size=8`, `epoch = 50`, `shuffle = True` dan `verbose=1`
+Langkah berikutnya, mulailah proses training. Pada proses ini menggunakan fungsi `callbacks`, dimana jika kinerja model tidak mengalami keanaikan maka pelatiahan dihentikan. Pada proses training parameter yang digunakan yakni `batch_size=8`, `epoch = 50`, `shuffle = True` dan `verbose=1`
 
 Proses latihan model dapat dilihat pada gambar berikut:
 
@@ -357,8 +357,7 @@ Proses latihan model dapat dilihat pada gambar berikut:
 Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749
 
 #### Penujian Sistem Rekomendasi
-Pada tahap ini kita akan lakukan pengujian terhadap model yang telah dibuat. Sebelumnya, pengguna telah memberi rating pada beberapa film yang telah mereka nonton. Kita menggunakan rating ini untuk membuat rekomendasi film yang mungkin cocok untuk pengguna.
-Berikut adalah Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kesamaan:
+Proses pengujian sistem dilakukan berdasarkan Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kesamaan:
 
 ![to-10_cf](https://github.com/user-attachments/assets/1715cb0a-d61c-430c-9957-9be6d91582db)
 
@@ -421,7 +420,7 @@ Dimana:
 * y_i adalah nilai aktual
 * ŷ_i adalah nilai prediksi
   
-Selanjutnya kita lakukan visualisasi metrik seperti Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara keduanya serta tren kesalahan dari waktu ke waktu `[3]`. 
+Selanjutnya dilakukan visualisasi metrik seperti Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE). Kedua metrik ini sangat penting dalam mengevaluasi kinerja model prediksi. Kedua metrik ini memberikan informasi tentang seberapa baik model dapat memprediksi nilai aktual, dan visualisasi dapat membantu dalam memahami perbandingan antara keduanya serta tren kesalahan dari waktu ke waktu `[3]`. 
 
 Hasil dari kedua metiks tersebut dapat ditampilakn pada gambar dibawah ini:
 
@@ -440,7 +439,7 @@ Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.17
 
 ## Kesimpulan
 Berdasarkan hasil yang diperoleh setelah melakukan proses pengolahan data sampai proses evaaluasi dapat dismpulkan bahwah:
-1. Pengunaan Teknik EDA kita dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%`. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20265` dan `13182`, sementara genre yang lain berada dibawah `10000`. Film dengan judul Terminator `3: Rise of the Machines` memiliki rating teratas dengan mean rating `4.256` dan total rating sebanyak `324`. Total rating terting berada diatas `250` sebanyak `5 film`, sedangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai `2 - 4.5` rating.
+1. Pengunaan Teknik EDA dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%`. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20265` dan `13182`, sementara genre yang lain berada dibawah `10000`. Film dengan judul Terminator `3: Rise of the Machines` memiliki rating teratas dengan mean rating `4.256` dan total rating sebanyak `324`. Total rating terting berada diatas `250` sebanyak `5 film`, sedangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai `2 - 4.5` rating.
 2. Dengan preparation data yang sistematis, seperti menangani nilai hilang (missing values), menghapus atau menangani outlier, dan melakukan encoding pada data kategorikal, proses analisis data menjadi lebih efisien dan akurat. Data yang bersih dan siap digunakan akan mengurangi risiko kesalahan dalam model analitik.
 3. Dengan mengunakan metode Content-Based Filtering dapat memberikan 10 rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna dengan nilai presesion matriks sebesar 100.00%.
 4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1338 dan root_mean_squared_error: 0.1715 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.180 pada epoh ke-18.
