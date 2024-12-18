@@ -352,7 +352,7 @@ Langkah berikutnya, mulailah proses training. Pada proses ini kita gunakan fungs
 
 Proses latihan model dapat dilihat pada gambar berikut:
 
-![pelatihan-model](https://github.com/user-attachments/assets/02d28cfe-8958-45b3-ad21-75c51c83abe5)
+![pelatihan_cf](https://github.com/user-attachments/assets/49e9f102-03ee-4ef4-9b2d-c22511dec5dd)
 
 Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749
 
@@ -360,7 +360,7 @@ Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan 
 Pada tahap ini kita akan lakukan pengujian terhadap model yang telah dibuat. Sebelumnya, pengguna telah memberi rating pada beberapa film yang telah mereka nonton. Kita menggunakan rating ini untuk membuat rekomendasi film yang mungkin cocok untuk pengguna.
 Berikut adalah Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kesamaan:
 
-![Top-N CF](https://github.com/user-attachments/assets/8277685f-3708-41b5-b1e3-cd91278c3a90)
+![to-10_cf](https://github.com/user-attachments/assets/1715cb0a-d61c-430c-9957-9be6d91582db)
 
 ## Evaluation
 
@@ -427,22 +427,23 @@ Hasil dari kedua metiks tersebut dapat ditampilakn pada gambar dibawah ini:
 
 * Gambar Visualisasi Metriks MAE
     
-![MAE-MAtriks](https://github.com/user-attachments/assets/646ab35b-5fdc-448f-8ac7-0e9572ef5977)
+![mae](https://github.com/user-attachments/assets/d99004c7-958c-4235-9384-28e1f764965e)
 
-Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1370 untuk training dan sedikit diatas 0.1657 untuk validasi.
+
+Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1338 untuk training dan sedikit diatas 0.1500 untuk validasi.
 
 * Gambar Visualisasi Metriks RMSE
 
-![RMSE_Matriks](https://github.com/user-attachments/assets/f38d7003-d4b1-4952-b8cf-93dc0d9c51c7)
+![rmse](https://github.com/user-attachments/assets/6a093187-e99d-4bcb-88d9-fc3fdaf2d5d9)
 
-Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1755 untuk training dan sedikit dibawah 0.221 untuk validasi.
+Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1715 untuk training dan sedikit dibawah 0.180 untuk validasi.
 
 ## Kesimpulan
 Berdasarkan hasil yang diperoleh setelah melakukan proses pengolahan data sampai proses evaaluasi dapat dismpulkan bahwah:
-1. Pengunaan Teknik EDA kita dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%`. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20243` dan `13137`, sementara genre yang lain berada dibawah `10000`. Film dengan judul Terminator `3: Rise of the Machines` memiliki rating teratas dengan mean rating `4.256` dan total rating sebanya `324`. Total rating terting berada diatas `250` sebanyak `5 film`, sedangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai `2 - 4.5` rating.
+1. Pengunaan Teknik EDA kita dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%`. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20265` dan `13182`, sementara genre yang lain berada dibawah `10000`. Film dengan judul Terminator `3: Rise of the Machines` memiliki rating teratas dengan mean rating `4.256` dan total rating sebanyak `324`. Total rating terting berada diatas `250` sebanyak `5 film`, sedangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai `2 - 4.5` rating.
 2. Dengan preparation data yang sistematis, seperti menangani nilai hilang (missing values), menghapus atau menangani outlier, dan melakukan encoding pada data kategorikal, proses analisis data menjadi lebih efisien dan akurat. Data yang bersih dan siap digunakan akan mengurangi risiko kesalahan dalam model analitik.
-3. Dengan mengunakan metode Content-Based Filtering dapat memberikan 10 rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna dengan nilai presesion matriks sebesar 90.00%.
-4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1364 dan root_mean_squared_error: 0.1755 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.2 pada epoh ke-17.
+3. Dengan mengunakan metode Content-Based Filtering dapat memberikan 10 rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna dengan nilai presesion matriks sebesar 100.00%.
+4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1338 dan root_mean_squared_error: 0.1715 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.180 pada epoh ke-18.
 
 ## Daftar Pustaka
 1. D. A. R. Ariantini, A. S. M. Lumenta and A.Jacobus, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016.
