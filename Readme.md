@@ -68,7 +68,7 @@ Pada proyek ini kita hanya menggunakan 2 file csv yaitu `ratings_small.csv` (var
 ### Exploratory Data Analysis - EDA
 Analisis eksploratif data (EDA) adalah tahap penting dalam analisis data yang bertujuan untuk memahami dan mengeksplorasi karakteristik dataset sebelum melakukan analisis yang lebih mendalam. Dataset yang digunakan dalam proyek ini yaitu dataset fIlm yang dapat dijelaskan sebagai barikut: 
 
-####  Univariate Analysis
+#### Univariate Analysis
 Berdasarkan varibel-variabel dataset di ataas, kita cukup mengambil variabel sesuai kebutuhan analisis dan pelatihan model pada proyek ini yakni movies dan rating.
 
 ##### Deskripsi Variabel
@@ -174,9 +174,9 @@ Distribusi genre film adalah aspek penting dalam sistem rekomendasi, karena memb
     
 Selanjutanya kita ubah setiap elemen dalam daftar (genre) menjadi baris terpisah dengan fungsi `explode()`, kemudian menghitung jumlah kemunculan setiap genre dengan fungsi `value_counts()` dan terakhir kita membuat diagram batang untuk menampilkan distribusi genre dengan plot bar `plot(kind='bar')`. Langkah pertama kita buat variabel dataframe baru untuk melakukan analisis visualisasi data. Kemudian kita konversi fitur(variabel) genres ke dalam bentuk list sehingga dapat dianalisi. Berikut adalah gambar distribrusi genres menggunakan grafik bar.
 
-![gambar-9](https://github.com/user-attachments/assets/8fc91fa0-b9bc-404f-8325-951ac2e33440)
+![genres_distribusi](https://github.com/user-attachments/assets/119090a5-1781-4afa-bb8f-041d7c4170b0)
 
-Dari grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20243 dan 13137. Sedangkan genre yang lain berada dibawah 10000.
+Dari gambar grafik diatas, dapat dilihat bahwa genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar 20265 dan 13182. Sedangkan genre yang lain berada dibawah 10000. Terlihat juga ada 12 genre dengan jumlah 1.
 
 ##### Analisis Daftar film dengan skor tertinggi di seluruh rentang film
 Untuk membuat daftar film dengan skor tertinggi menggunakan metode Weighted Score. Metode ini merupakan perhitungan skor berbobot untuk menggabungkan nilai-nilai yang berbeda berdasarkan pentingnya masing-masing komponen. Dalam konteks film, kita perlu menghitung skor berbobot berdasarkan informasi yang tersedia, seperti rata-rata penilaian (`vote_average`), jumlah suara (`vote_count`), dan jumlah suara rata-rata minimum yang diperlukan untuk dipertimbangkan dalam daftar.
@@ -188,16 +188,16 @@ C = rata-rata skor semua film dalam dataset (rata-rata global)
 
 Hasilnya dapat dilihat pada gambar berikut:
 
-![gambar-10](https://github.com/user-attachments/assets/9cac3d6e-5615-4f76-b913-4c45d84e36fa)
+![analisis_top_rating_movies](https://github.com/user-attachments/assets/48127eca-ba1a-4fa8-b4b3-4c9645481459)
 
-Gambar diatas menunjukan 5 film dengan skor tertinggi yang diberikan oleh pengguna.
+Gambar diatas menunjukan 5 film dengan skor tertinggi yang diberikan oleh pengguna. Dapat dilihat film dengan judul _Dilwale Dulhania Le Jayenge_	memiliki skor tertiggi yaitu 8.929668.
 
 ##### Analisis Rating Tertinggi
 Selanjutnya kita gabungkan dataset df_movies dan ratings dengan fungsi pandas pd.merge dan mencari 10 film dengan rating tertinggi. Alisis rating tertinggi dapat dilihat pada gambar berikut:
 
 ![10-analisis rating](https://github.com/user-attachments/assets/257800b2-4b5e-4ecc-8598-3c679031faca)
 
-Dapat dilihat pada gambar diatas dari 10 rating tertinggi film yang ada, film dengan judul **Terminator 3: Rise of the Machines*** memiliki rating teratas dengan *mean rating* 4.256 dan total rating sebanya 324.
+Dapat dilihat pada gambar diatas dari 10 rating tertinggi film yang ada, film dengan judul _Terminator 3: Rise of the Machines_ memiliki rating teratas dengan *mean rating* 4.256 dan total rating sebanyak 324.
 
 ##### Membandingkan Peringkat rata-rata vs Jumlah total peringkat
 Pada tahap ini kita akan membandingkan rata-rata rangkin dan total rangking menggunakan joinplot untuk melihat pesebaran data yang dapat dilihat pada gambari dibawah ini:
@@ -255,14 +255,14 @@ Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara ef
 * Mengubah fitur genres movie ke bentuk list
 * Melakukan penggabungan dataset ratings dan movies
 * Mengambil Dataset sesuai kebutuhan
+  Pada proyek ini, data yang diambil sebanyak **20000 data** dari gabungan dataset `movies` dan `ratings` dengan teknik sampling menggunakan fungsi `shuffle` dari library
+  `sklearn.utils` untuk mengambil data secara acak dataset besar untuk mempermudah pengolahan dan mencegah `crash`. Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya
+  pada gambar berikut:
 
-Pada proyek ini, data yang diambil sebanyak **20000 data** dari gabungan dataset `movies` dan `ratings` dengan teknik sampling menggunakan fungsi `shuffle` dari library `sklearn.utils` untuk mengambil data secara acak dataset besar untuk mempermudah pengolahan dan mencegah `crash`.
-Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya pada gambar berikut:
+  ![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
 
-![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
-
-
-Dari gambar diatas dapat dilihat dataset kita sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`, `vote_average` dan `vote_count`.
+  Dari gambar diatas dapat dilihat dataset kita sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`,
+  `vote_average` dan `vote_count`.
 
 ### Content Based Filtering
 Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik `TF-IDF` (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
