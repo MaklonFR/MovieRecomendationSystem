@@ -139,9 +139,9 @@ Pada tahap ini, jumlah variabel dataset movies sebanyak 45466 dan memiliki 5 kol
 ##### Menghitung Total Data Unik
 Jumlah rincian data unik dapat dilihat pada gambar berikut:
 
-![data_unik](https://github.com/user-attachments/assets/87801017-e92f-42eb-9c1b-2a504604aa3b)
+![total_data_unik](https://github.com/user-attachments/assets/7434e8c2-574f-415c-9317-c00174cb9ade)
 
-Dapat dilihat bahwa jumlah id dalam film sebanyak 45436 pada movies dan jumlah movieId pada ratings sebanyak 9066.  Sedangkan jumlah pengguna unik pada ratings sebanyak 671. 
+Dari hasil diatas terdapat 45436 film pada dataset movies, 9066 film pada dataset ratings dan 671 user pada dataset ratings
 
 ##### Melihat Data Deskriptif pada variabel dataset
 Data deskriptif pada variabel movies dan ratings dapat dilihat pada gambar berikut:
@@ -215,7 +215,7 @@ Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara ef
 #### 1. Mengambil Fitur Sesuai Kebutuhan
 Pada pronyek ini, dataset *movies_metadata (movies)*  hanya mengambil beberapa fitur atau kolom sesuai kebutuhan analsis pengolahan data yakni `['id', 'genres', 'title', 'vote_average', 'vote_count']`. Fitur-fitur tersebut dapat dilihat pada gambar di bawah ini yang menampilkan 5 data pada setiap fitur
 
-![gambar-1](https://github.com/user-attachments/assets/87240afd-52bc-4419-a8e3-c414848c605a) 
+![ambil_fitur_sesuai_kebutuhan](https://github.com/user-attachments/assets/e2f19108-10f3-4c33-828e-ea29e101fafb)
 
 #### 2. Menyesuaikan Tipe Data Primary Key dan Foregein Key
 Pada tahap ini, perlu menyesuaikan tipe data `primary key` dan `foregein key`. Jika dilihat pada informasi sebelumnya, dataset movies atribut id (`primary key`) dengan type data `object` berbeda pada dataset ratings atribut `movieId` dengan type data `int64`. Oleh karena itu, perlu menyamakan tipe data tersebut dengan cara menyamakan nama atribut movieId dan tipe data `int64`.
@@ -225,9 +225,9 @@ Pada tahap ini, akan dilakukan pengecekan nilai kosong serta menanganinya pada v
 
 ![nilai_null_movies](https://github.com/user-attachments/assets/fbf0fcb0-e41e-49a5-8cd7-bf742b4e6190)
 
-Dari gambar diatas, nilai null terdapat pada variabel `title`, `vote_average` dan `vote_count` memiliki nilai null = 6.
+Dari gambar diatas, nilai null terdapat pada variabel `title`, `vote_average` dan `vote_count` memiliki nilai null = 3.
 
-![nilai_null_ratings](https://github.com/user-attachments/assets/5391c467-523e-433b-9fe6-97935d2ac2d5)
+![ratings_null](https://github.com/user-attachments/assets/4355e5ff-3740-492c-95a2-08c7db0490d1)
 
 Dari gambar diatas terlihat variabel dataset ratings tidak memiliki nilai null.
 
@@ -250,44 +250,42 @@ Pada tahap ini, akan diperlihatkan statistik deskriptif dari dataset variabel df
 Berdasarkan tampilan deskriptif dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan `outlier`.
 
 ### Data Preprocesing
-Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini adalah sebagai berikut:
-* Mengurutkan pengguna berdasarkan ID Pengguna
-* Mengubah fitur genres movie ke bentuk list
-* Melakukan penggabungan dataset ratings dan movies
-* Mengambil Dataset sesuai kebutuhan
-  Pada proyek ini, data yang diambil sebanyak **20000 data** dari gabungan dataset `movies` dan `ratings` dengan teknik sampling menggunakan fungsi `shuffle` dari library
-  `sklearn.utils` untuk mengambil data secara acak dataset besar untuk mempermudah pengolahan dan mencegah `crash`. Setelah semua langkah diatas dieksekusi maka dapat dilihar hasilnya
-  pada gambar berikut:
+Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini yaitu pertama mengurutkan pengguna berdasarkan ID Pengguna, mengubah fitur genres movie ke bentuk list, melakukan penggabungan dataset ratings dan movies dan menghapus fitur yang tidak diperlukan. Hasilnya dapat dilihat pada gambar berikut:
 
-  ![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
+![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
 
-  Dari gambar diatas dapat dilihat dataset sudah tergabung yang terdiri atas jumlah 20000 baris dan 7 kolom yakni kolom `userId`, `movieId`, `rating', `genres`, `title`,
-  `vote_average` dan `vote_count`.
+Hasil gambar diatas menunjukan 10 data gabungan movies dan ratings, dimana fitur genre sudah menjadi bentuk list dan diurutkan berdasarkan iduser.
+
+Selanjutnya diambil 20000 gabugan dataset movies dan ratings menggunakan fungsi `shuffle` dari library `sklearn.utils` untuk memperoleh data secara acak dengan tujuan mempermudah pengolahan dan mencegah crash. Hasilnya dapat dilihat pada gambar berikut:
+
+![datset-20000](https://github.com/user-attachments/assets/8b8f03c8-e9c8-403b-a36d-658840e7c26c)
+
+Pada gambar diatas terdapat 20000 baris dan 5 kolom yakni `userId`, `movieId`, `rating`, `genres` dan `title`.
 
 ### Content Based Filtering
 Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik `TF-IDF` (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
 
 Berikutnya, lanjutkan ke tahap persiapan dengan membuat variabel preparation yang berisi dataframe df_sample_final kemudian mengurutkan berdasarkan movieId. Hasilnya dpat dilihat pada gambar berikut:
 
-![preparation_cbf](https://github.com/user-attachments/assets/d872735a-8eb3-4dee-b6b3-914a7ce2fc9e)
 
-Selanjutnya, lakukan konversi data series menjadi list. Dalam hal ini, menggunakan fungsi `tolist()` dari library `numpy`. Setelah konversi dilakukan diperoleh variabel `movieId`, `movie_name` dan `movie_genres` dengan jumlah masing-masing sebanyak 2209.
+
+Selanjutnya, lakukan konversi data series menjadi list. Dalam hal ini, menggunakan fungsi `tolist()` dari library `numpy`. Setelah konversi dilakukan diperoleh variabel `movieId`, `movie_name`, `movie_genres` dan `title` dengan jumlah masing-masing sebanyak 2272.
 
 Tahap terakhir, membuat dictionary untuk menentukan pasangan `key-value` pada data `movie_id`, `movie_name` dan `movie_genres` yang telah siapkan sebelumnya. Hasilnya dapat dilihat pada gambar berikut:
 
-![movie_new](https://github.com/user-attachments/assets/9afd1e83-3722-4c90-aa02-d3d79ba3f915)
+![movie_new](https://github.com/user-attachments/assets/fe874af2-1726-43f3-befe-9a5910665ff6)
 
 Selanjutnya, gunakan fungsi `TfidfVectorizer` untuk mengkonversi `genres`. Namun sebelum itu genres perlu dikonversi dari list ke siting akar dapay diproses.
 
-![TfidfVectorizer_Genres](https://github.com/user-attachments/assets/0d44dabc-7156-438c-9d5f-51266a1a0a7e)
+![TfidfVectorizer_Genre](https://github.com/user-attachments/assets/b2d91377-89ce-4d14-9320-1ca8bb81bd35)
 
 Setelah mendapat index seluruh genre film, akan difit lalu ditransformasikan ke bentuk matriks sehingga diperoleh ukuran (2209, 22) serta mengubah vektor tf-idf dalam bentuk matriks dengan fungsi todense(). Hasilnya dapat dilihat pada gambar berikut:
 
-![matriks_todense](https://github.com/user-attachments/assets/662356e9-6909-4e0d-89d5-58814c7530fd)
+![matrik-tendonse](https://github.com/user-attachments/assets/6054bfe3-9c22-4014-99e6-4ea804fa512c)
 
 Setelah dibentuk matriks, dibuat tabel berisi judul film beserta genrenya berdasarkan TF-IDF yang telah diinisiasi. Hasilnya dapat dilihat pada gambar berikut:
 
-![tabel_judul_film_genres](https://github.com/user-attachments/assets/8676ab8c-5a8b-4c33-9adc-f4d89ab0ac30)
+![image](https://github.com/user-attachments/assets/d1fdfa27-ed24-4e89-a8f4-4567e10dcf65)
 
 ### Collaborative Filtering (CF)
 Pada tahap ini data prerataion CF, Langkah pertama, cek dataset dengan fungsi `info()`, hasilnya ditampilkan pada gambar berikut:
@@ -300,21 +298,20 @@ Dari hasil diatas, terdapat 20000 baris dan 7 kolom dan memiliki 3 tipe data `fl
 Pada tahap ini, akan dilakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
 * Encoding `userId`
 
-![encoding-userId](https://github.com/user-attachments/assets/40500668-535e-4ee3-9380-d77f959e49b6)
+![userId-encoding](https://github.com/user-attachments/assets/961d7b86-7b07-4780-b844-e531947aafb9)
 
 * Encoding `movieId`
 
-![encoding_movie_id](https://github.com/user-attachments/assets/879755e6-b238-4d15-839f-d2d8c31dbf41)
+![movieId-encoding](https://github.com/user-attachments/assets/3a3ba6a0-b9d1-4278-8640-fe9cdd6567df)
 
-Selanjutnya ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2256 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
+Selanjutnya ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2272 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
 
 #### Membagi Data untuk Training dan Validasi
 Pada tahap ini, data training dan data validasi dibagi untuk proses pelatihan model. Namun sebelum itu, perlu mengacak dataset sehingga menjadi data yang valid. Hasilnya seperti pada gambar berikut:
 
-![dataset_acak](https://github.com/user-attachments/assets/fcbdae71-655c-43a4-b227-17bc8b13359f)
+![data-acak-uji](https://github.com/user-attachments/assets/1edac292-34f4-4d77-a7f0-f98632a8e7af)
 
 Selanjutnya, buat variabel x untuk mencocokkan data user dan Movie menjadi satu value, kemudian variabel y untuk membuat rating dari hasil. Terakhir,  bagi menjadi `80%` data train dan `20%`` data validasi.
-
 
 ## Modeling and Result
 Pada tahap ini ada dua model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Kedua model tersebut dapat dijelaskan sebagai berikut:
@@ -324,22 +321,22 @@ Pada proyek ini, metode yang digunakan adalah `Consine Similarity`,  yang berfun
 
 Langkah pertama hitung `cosine similarity` pada matrix `tf-idf` yang dapat dilihat pada gambar berikut:
 
-![consimlirity_mat](https://github.com/user-attachments/assets/eaac13f1-722e-4bda-9cf9-533d3eca9c7b)
+![consimilarity-1](https://github.com/user-attachments/assets/3369cf7b-12ff-44ed-9f1f-51dd549f2d41)
 
 Langkah kedua, lihat hasil cosine similarity pada matrix tf-idf anta judul film yang mirip berdasarkan genre.
 
-![tampil_similirity_film](https://github.com/user-attachments/assets/d8fbc1b2-47c3-46db-b31a-562ae0122d28)
+![consimilarity-2](https://github.com/user-attachments/assets/a8597a78-d66c-4afc-aefd-2b1ea59018c2)
 
 Selanjutnya, buat fungsi rekomendasi film berdasarkan kemiripan genre dengan menerapkan fungsi Top-N rekokemendasi serta menguji dan mengevaluasi model yang dibuat.
 
 #### Pengujian Sistem Rekomendasi
 Pada proses pengujian akan diambil satu judul film untuk dilakukan pengujian seperti yan terlihat pada gambar berikut:
 
-![film_uji](https://github.com/user-attachments/assets/272fca27-4807-4b62-81cc-0fc62957413d)
+![cfb-1](https://github.com/user-attachments/assets/054a8b62-f530-48ef-bad9-5fb85fe3ae32)
 
 10 hasil rekomendasi film dapat dilihat pada gambar berikut:
 
-![top_10_cfb](https://github.com/user-attachments/assets/1f33685a-e3bc-483c-a355-f4c1903c0101)
+![top-10-cbf](https://github.com/user-attachments/assets/be229df6-c9c5-479c-94a6-ab14b9d0be02)
 
 Dapat dilihat genre film uji yang dimasukan adalah `Crime`, `Drama`, `Romance`. Hasilnya genre ini tersebar di dalam 10 judul film yang memiliki kesaaman genre.
 
@@ -352,14 +349,14 @@ Langkah berikutnya, mulailah proses training. Pada proses ini menggunakan fungsi
 
 Proses latihan model dapat dilihat pada gambar berikut:
 
-![pelatihan_cf](https://github.com/user-attachments/assets/49e9f102-03ee-4ef4-9b2d-c22511dec5dd)
+![pelatihan-cf-deeplearning](https://github.com/user-attachments/assets/cf428bd1-4f7c-42c7-a226-671a649e786b)
 
 Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749
 
 #### Penujian Sistem Rekomendasi
 Proses pengujian sistem dilakukan berdasarkan Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kesamaan:
 
-![to-10_cf](https://github.com/user-attachments/assets/1715cb0a-d61c-430c-9957-9be6d91582db)
+![image](https://github.com/user-attachments/assets/b480d86d-1d9a-44a7-ade7-6d41b12e43e7)
 
 ## Evaluation
 
@@ -380,15 +377,15 @@ Hasil pengujian menggunakan atribut genre {"Crime", "Drama", dan "Romance"} deng
 | | title                   |	genres      | hasil presisis  |
 |-| ----------              | ----------  | -----------  |
 |0|	Schizo	                | Crime, Drama, Romance           | TRUE   |
-|1|	3-Iron	                |   Drama, Romance, Crime         | TRUE   |
-|2|	The Thomas Crown Affair |	Romance, Crime, Thriller, Drama | TRUE   |
-|3|	The Thomas Crown Affair |	Drama, Crime, Romance           | TRUE   |
-|4|	The Little Thief        |	Romance, Drama, Crime           | TRUE   |
-|5|	Tie Me Up! Tie Me Down! |	Comedy, Crime, Drama, Romance   | TRUE   |
-|6|	Prizzi's Honor          |	Romance, Comedy, Crime, Drama   | TRUE   |
-|7|	Young Adam              |	Drama, Thriller, Crime, Romance | TRUE   |
-|8|	Lonely Hearts           |	Drama, Thriller, Crime, Romance | TRUE   |
-|9|	Music Box               |	Crime, Drama, Romance, Thriller | TRUE   |
+|1|	The Little Thief	      | Romance, Drama, Crime          | TRUE   |
+|2|	Made in Hong Kong       |	Crime, Drama, Romance | TRUE   |
+|3|	The Thomas Crown Affair |	Drama, Crime, Romance          | TRUE   |
+|4|	The Thomas Crown Affair |	Romance, Crime, Thriller, Drama          | TRUE   |
+|5|	3-Iron                  |	Drama, Romance, Crime  | TRUE   |
+|6|	Angel Face              |	Crime, Drama, Romance  | TRUE   |
+|7|	Prizzi's Honor          |	Romance, Comedy, Crime, Drama | TRUE   |
+|8|	Tie Me Up! Tie Me Down! |	Comedy, Crime, Drama, Romance | TRUE   |
+|9|	Young Adam              |	Drama, Thriller, Crime, Romance| TRUE   |
 
 diperoleh nilai _True_Positive_ = 10 , _False_Positive_ = 0. Jika dimasukan dalam rumus metriks maka nilai precision 10/10 = 1 atau 100.00%.
 
@@ -426,23 +423,22 @@ Hasil dari kedua metiks tersebut dapat ditampilakn pada gambar dibawah ini:
 
 * Gambar Visualisasi Metriks MAE
     
-![mae](https://github.com/user-attachments/assets/d99004c7-958c-4235-9384-28e1f764965e)
+![mae](https://github.com/user-attachments/assets/0a4b5a01-0914-48aa-874a-7e2e055b6669)
 
-
-Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1338 untuk training dan sedikit diatas 0.1500 untuk validasi.
+Berdasarkan hasil `fitting` nilai konvergen metrik MAE berada sedikit dibawah 0.1373 untuk training dan sedikit diatas 0.1500 untuk validasi.
 
 * Gambar Visualisasi Metriks RMSE
 
-![rmse](https://github.com/user-attachments/assets/6a093187-e99d-4bcb-88d9-fc3fdaf2d5d9)
+![rmse](https://github.com/user-attachments/assets/cc352b2f-bade-4efa-ace5-2ebc42abce6b)
 
-Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1715 untuk training dan sedikit dibawah 0.180 untuk validasi.
+Berdasarkan hasil fitting nilai konvergen metrik RMSE berada sedikit diatas 0.1762 untuk training dan sedikit dibawah 0.180 untuk validasi.
 
 ## Kesimpulan
 Berdasarkan hasil yang diperoleh setelah melakukan proses pengolahan data sampai proses evaaluasi dapat dismpulkan bahwah:
 1. Pengunaan Teknik EDA dapat melihat distribusi data pada data rating dan data genre film dengan jelas. Nilai ratings paling umum diberikan pengguna adalah rating `4.0` dengan presentasi `28.7%`, rating `3.0` dengan presentasi `20.1%`, rating `5.0` dengan prestansi `15.1%`. Sedangkan nilai rating yang lain berada dibawah pada presentasi `12.0%`. Sedangkan genre Drama dan Comedy paling banyak tersebar pada setiap film dalam dataset dengan jumah sebesar `20265` dan `13182`, sementara genre yang lain berada dibawah `10000`. Film dengan judul Terminator `3: Rise of the Machines` memiliki rating teratas dengan mean rating `4.256` dan total rating sebanyak `324`. Total rating terting berada diatas `250` sebanyak `5 film`, sedangkan rata-rata terbanyak pengguna memberi rating terhadap film berada diretang nilai `2 - 4.5` rating.
 2. Dengan preparation data yang sistematis, seperti menangani nilai hilang (missing values), menghapus atau menangani outlier, dan melakukan encoding pada data kategorikal, proses analisis data menjadi lebih efisien dan akurat. Data yang bersih dan siap digunakan akan mengurangi risiko kesalahan dalam model analitik.
 3. Dengan mengunakan metode Content-Based Filtering dapat memberikan 10 rekomendaasi film kepada sesama pengguna berdasarkan kesaaman perilaku pengguna dengan nilai presesion matriks sebesar 100.00%.
-4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1338 dan root_mean_squared_error: 0.1715 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.180 pada epoh ke-18.
+4. Penggunaan Model-Based Deep Learning Collaborative Filtering memberikan hasil rekomendasi yang lebih akurat dan relevan bagi pengguna. Hal ini di buktikan dngan hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1373 dan root_mean_squared_error: 0.1762 dan juga tampilan matriks visualisasi yang menunjukan nilai MAE dan RMSE berada dibawah 0.180 pada epoh ke-17.
 
 ## Daftar Pustaka
 1. D. A. R. Ariantini, A. S. M. Lumenta and A.Jacobus, "PENGUKURAN KEMIRIPAN DOKUMEN TEKS BAHASA INDONESIA MENGGUNAKAN METODE COSINE SIMILARITY," E-Journal Teknik Informatika Volume 9, No 1 (2016), ISSN : 2301-8364, vol. IX, pp. 1-8, 2016.
