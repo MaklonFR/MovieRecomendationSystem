@@ -25,7 +25,7 @@ Dalam proyek ini, untuk mengatasi asalah diatas, digunakan teknik analisis data 
 * Menggunakan Model Content-Based Filtering untuk merekomendasikan film berdasarkan kemiripan film berdasarkan perilaku pengguna.
 * Mengunakan model Model-Based Deep Learning Collaborative Filtering meberikan rekomendasi dengan tingkat akurasi yang tinggi.
 
-Model flochart sistem yang diususkan untuk kedua model diatas yakni:
+Model flowchart sistem yang diususkan untuk kedua model diatas yakni:
 
 1. Flowchart Content-Based Filtering (CBF)
 
@@ -220,7 +220,7 @@ Berdasarkan grafik pesebaran data diatas total rating terting berada diatas 250 
 ## Data Preparation
 Data preparation adalah langkah penting dalam pengembangan sistem rekomendasi film yang efektif. Proses ini mencakup beberapa tahap, mulai dari pengumpulan data hingga pemrosesan akhir sebelum data digunakan dalam model machine learning. 
 
-###  Data Clean
+###  Data Cleaning
 Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Setelah data terkumpul ada beberapa langkah yang perlu lakukan dalam tahap ini yaitu:
 
 #### 1. Mengambil Fitur Sesuai Kebutuhan
@@ -278,8 +278,6 @@ Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan r
 
 Berikutnya, lanjutkan ke tahap persiapan dengan membuat variabel preparation yang berisi dataframe df_sample_final kemudian mengurutkan berdasarkan movieId. Hasilnya dpat dilihat pada gambar berikut:
 
-
-
 Selanjutnya, lakukan konversi data series menjadi list. Dalam hal ini, menggunakan fungsi `tolist()` dari library `numpy`. Setelah konversi dilakukan diperoleh variabel `movieId`, `movie_name`, `movie_genres` dan `title` dengan jumlah masing-masing sebanyak 2272.
 
 Tahap terakhir, membuat dictionary untuk menentukan pasangan `key-value` pada data `movie_id`, `movie_name` dan `movie_genres` yang telah siapkan sebelumnya. Hasilnya dapat dilihat pada gambar berikut:
@@ -303,7 +301,7 @@ Pada tahap ini data prerataion CF, Langkah pertama, cek dataset dengan fungsi `i
 
 ![sampel_final](https://github.com/user-attachments/assets/f3083afc-7726-40d1-92c9-edd5e6ec6c66)
 
-Dari hasil diatas, terdapat 20000 baris dan 7 kolom dan memiliki 3 tipe data `float64`, 2 tipe data `int64` dan 2 tipe data `object`. Langkah kedua Kedua, hapus kolom yang tidak dibutuhkan dalam pelatihan yaitu `genres` dan `title`. Langkah berikutnya, urutkan berdasarkan kolom `userId` untuk  masuk pada tahap encoding `userId` dan `movieId`.
+Dari hasil diatas, terdapat 20000 baris dan 5 kolom dan memiliki 1 tipe data `float64`, 2 tipe data `int64` dan 2 tipe data `object`. Langkah kedua Kedua, hapus kolom yang tidak dibutuhkan dalam pelatihan yaitu `genres` dan `title`. Langkah berikutnya, urutkan berdasarkan kolom `userId` untuk  masuk pada tahap encoding `userId` dan `movieId`.
 
 #### Encoding userId dan movieId
 Pada tahap ini, akan dilakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
