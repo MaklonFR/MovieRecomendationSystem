@@ -25,6 +25,17 @@ Dalam proyek ini, untuk mengatasi asalah diatas, digunakan teknik analisis data 
 * Menggunakan Model Content-Based Filtering untuk merekomendasikan film berdasarkan kemiripan film berdasarkan perilaku pengguna.
 * Mengunakan model Model-Based Deep Learning Collaborative Filtering meberikan rekomendasi dengan tingkat akurasi yang tinggi.
 
+Model flochart sistem yang diususkan untuk kedua model diatas yakni:
+
+1. Flowchart Content-Based Filtering (CBF)
+
+![cbf-CBF drawio (1)](https://github.com/user-attachments/assets/2d9b916c-263a-4c5b-8850-3f926680b3d9)
+
+2. Deep Learning Collaborative Filtering (CF)
+
+![cbf-CF drawio](https://github.com/user-attachments/assets/e70d8e81-1201-4897-b016-4a5f091471a9)
+
+
 ## Data Understanding
 Data understanding dalam proyek sistem rekomendasi film melibatkan pengumpulan, analisis, dan pemahaman tentang data yang akan digunakan untuk membangun model rekomendasi. Berikut adalah beberapa aspek penting dari data understanding dalam konteks ini.
 
