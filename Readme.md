@@ -154,7 +154,18 @@ Jumlah rincian data unik dapat dilihat pada gambar berikut:
 
 Dari hasil diatas terdapat 45436 film pada dataset movies, 9066 film pada dataset ratings dan 671 user pada dataset ratings
 
-##### Melihat Data Deskriptif pada variabel dataset
+##### Pengecekan Outliers
+Pada tahap ini, akan diperlihatkan statistik deskriptif dari dataset variabel df_movies dan ratings mengunakan fungsi `describe()`.
+
+* Variabel movies
+   
+![des_movies](https://github.com/user-attachments/assets/82b83bfb-2c0c-4c82-882b-bb0feda63a01)
+
+* Variabel ratings
+   
+![des_rating](https://github.com/user-attachments/assets/3ff035f5-9f5e-4f90-a641-043753e98149)
+
+Berdasarkan tampilan deskriptif dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan `outlier`.
 Data deskriptif pada variabel movies dan ratings dapat dilihat pada gambar berikut:
 * variabel movies
 ![deskriptif_movies](https://github.com/user-attachments/assets/b597510a-8dd8-4566-b68f-0408ca3ed349)
@@ -247,21 +258,19 @@ Selanjutnya hapus jumlah data dengan nilai null, karena sangat sedikit dan tidak
 #### 4. Menangani Duplikat Data (Duplicated Data)
 Pada tap ini, akan dlakukan pengecekan data ganda serta menanganinya pada variabel dataset movies dan ratings. Setalah dilakukan pengecekan terdapat 28 data ganda pada variabel dataset movies dan tidak ada data ganda pada variabel dataset ratings. Terakhir lakukan penghapusan data ganda pada variabel dataset movies.
 
-#### 5. Menangani Outliers
-Pada tahap ini, akan diperlihatkan statistik deskriptif dari dataset variabel df_movies dan ratings mengunakan fungsi `describe()`.
-
-* Variabel movies
-   
-![des_movies](https://github.com/user-attachments/assets/82b83bfb-2c0c-4c82-882b-bb0feda63a01)
-
-* Variabel ratings
-   
-![des_rating](https://github.com/user-attachments/assets/3ff035f5-9f5e-4f90-a641-043753e98149)
-
-Berdasarkan tampilan deskriptif dataset movies dan ratings dapat dilihat tidak mencolok ada pesebaran nilai yang menimbulkan `outlier`.
-
 ### Data Preprocesing
-Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini yaitu pertama mengurutkan pengguna berdasarkan ID Pengguna, mengubah fitur genres movie ke bentuk list, melakukan penggabungan dataset ratings dan movies dan menghapus fitur yang tidak diperlukan. Hasilnya dapat dilihat pada gambar berikut:
+Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini yaitu:
+* Mengurutkan pengguna berdasarkan ID Pengguna
+Pada tahap ini, akan dilakukan pengurutan data berdasarkan userId pada variabel dataset ratings dan movieId pada variabel dataset df_movies. Hasilnya dapat dilihat pada gambar berikut:
+
+* Mengubah fitur genres movie ke bentuk list
+Pada tahap ini karena fitur genres pada variabel dataset df_movies masih dalam bentuk format json, maka perlu diubah kedalam bentuk list sehingga dapat dilakukan dalam proses pelatihan model. Hasilnya dapat dilihat pada gambar berikut:
+
+* Melakukan penggabungan dataset df_movies dan ratings 
+Selanjutnya akan dilakukan penggabungan dataset variabel df_movies dan ratings menggunkan fungsi `inner` melalui fitur movieId. Hasilnya dapat dilihat pada gambar berikut:
+
+* Menghapus fitur yang tidak diperlukan. 
+Langkah selanjutnya, melakukan penghapusan fitur-titru yang tidak diperlukan dalam proses pelathan model nanti yakni fitur `timestamp`, `vote_average` dan `vote_count`. Hasilnya dapat dilihat pada gambar berikut:
 
 ![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
 
