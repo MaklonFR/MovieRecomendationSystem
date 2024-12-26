@@ -229,28 +229,24 @@ Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara ef
 
 ### Data Preprocessing
 Proses ini bertujuan untuk menyiapkan data mentah agar dapat digunakan secara efektif dalam model machine learning. Langkah-langkah yang dilakukan dalam proyak ini yaitu:
-#### 1. Mengurutkan pengguna dan film berdasarkan ID
-Pada tahap ini, akan dilakukan pengurutan data berdasarkan userId pada variabel dataset ratings dan movieId pada variabel dataset df_movies. Hasilnya dapat dilihat pada gambar berikut:
+* **Mengurutkan Pengguna dan Film berdasarkan ID**
+    Pada tahap ini, akan dilakukan pengurutan data berdasarkan userId pada variabel dataset ratings dan movieId pada variabel dataset df_movies. Hasilnya dapat dilihat pada gambar berikut:
 
-#### 2. Mengubah fitur genres movie ke bentuk list
-Pada tahap ini karena fitur genres pada variabel dataset df_movies masih dalam bentuk format json, maka perlu diubah kedalam bentuk list sehingga dapat dilakukan dalam proses pelatihan model. Hasilnya dapat dilihat pada gambar berikut:
+* **Mengubah fitur genres movie ke bentuk list**
+    Pada tahap ini, fitur genres pada variabel dataset df_movies masih dalam bentuk format json, maka perlu diubah kedalam bentuk list sehingga dapat dilakukan dalam proses pelatihan model. Hasilnya dapat dilihat pada gambar berikut:
 
-#### 3. Melakukan penggabungan dataset df_movies dan ratings 
-Selanjutnya akan dilakukan penggabungan dataset variabel df_movies dan ratings menggunkan fungsi `inner` melalui fitur movieId. Hasilnya dapat dilihat pada gambar berikut:
+* **Melakukan penggabungan dataset df_movies dan ratings** 
+    Selanjutnya akan dilakukan penggabungan dataset variabel df_movies dan ratings menggunkan fungsi `inner` melalui fitur movieId. Hasilnya dapat dilihat pada gambar berikut:
 
-#### 4. Menghapus fitur yang tidak diperlukan. 
-Langkah selanjutnya, melakukan penghapusan fitur-titru yang tidak diperlukan dalam proses pelathan model nanti yakni fitur `timestamp`, `vote_average` dan `vote_count`. Hasilnya dapat dilihat pada gambar berikut:
+* **Menghapus fitur yang tidak diperlukan**
+    Langkah selanjutnya, melakukan penghapusan fitur-titru yang tidak diperlukan dalam proses pelathan model nanti yakni fitur *timestamp*, *vote_average* dan *vote_count*. Hasilnya dapat dilihat pada gambar berikut:
+    ![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
+    Hasil gambar diatas menunjukan 10 data gabungan movies dan ratings, dimana fitur genre sudah menjadi bentuk list dan diurutkan berdasarkan *userId*.
 
-![data_final](https://github.com/user-attachments/assets/6fb9e788-f5ce-43c8-b2ea-ff122c545db1)
-
-Hasil gambar diatas menunjukan 10 data gabungan movies dan ratings, dimana fitur genre sudah menjadi bentuk list dan diurutkan berdasarkan iduser.
-
-#### 5. Mengambil 20000 dataset secara acak
-Selanjutnya diambil 20000 gabugan dataset variabel df_movies dan ratings menggunakan fungsi `shuffle` dari library `sklearn.utils` untuk memperoleh data secara acak dengan tujuan mempermudah pengolahan dan mencegah crash. Hasilnya dapat dilihat pada gambar berikut:
-
-![datset-20000](https://github.com/user-attachments/assets/8b8f03c8-e9c8-403b-a36d-658840e7c26c)
-
-Pada gambar diatas terdapat 20000 baris dan 5 kolom yakni `userId`, `movieId`, `rating`, `genres` dan `title`.
+* **Mengambil 20000 dataset secara acak**
+    Selanjutnya diambil 20000 gabugan dataset variabel df_movies dan ratings menggunakan fungsi `shuffle` dari library `sklearn.utils` untuk memperoleh data secara acak dengan tujuan mempermudah pengolahan dan mencegah crash. Hasilnya dapat dilihat pada gambar berikut:
+    ![datset-20000](https://github.com/user-attachments/assets/8b8f03c8-e9c8-403b-a36d-658840e7c26c)
+    Pada gambar diatas terdapat 20000 baris dan 5 kolom yakni *userId*, *movieId*, *rating*, *genres* dan *title*.
 
 ### Content-Based Filtering
 Content-Based Filtering adalah metode dalam sistem rekomendasi yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item yang telah disukai atau dinilai oleh pengguna. Teknik yang digunakan yaitu teknik `TF-IDF` (Term Frequency-Inverse Document Frequency) untuk menentukan bobot fitur dan menghitung kesamaan antara item dalam hal ini adalah `genres`.
@@ -282,42 +278,34 @@ Pada tahap ini data prerataion CF, Langkah pertama, cek dataset dengan fungsi `i
 
 Dari hasil diatas, terdapat 20000 baris dan 5 kolom dan memiliki 1 tipe data `float64`, 2 tipe data `int64` dan 2 tipe data `object`. Langkah kedua Kedua, hapus kolom yang tidak dibutuhkan dalam pelatihan yaitu `genres` dan `title`. Langkah berikutnya, urutkan berdasarkan kolom `userId` untuk  masuk pada tahap encoding `userId` dan `movieId`.
 
-#### Encoding *userId* dan *movieId*
-Pada tahap ini, akan dilakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
-* Encoding *userId*
+* **Encoding userId dan movieId**
+    Pada tahap ini, akan dilakukan encoding pada `userId` dan `movieId`. Hasilnya dapat ditampilkan pada gamabr dibwah ini:
+    1. Encoding *userId*
+    ![userId-encoding](https://github.com/user-attachments/assets/961d7b86-7b07-4780-b844-e531947aafb9)
+    2. Encoding *movieId*
+    ![movieId-encoding](https://github.com/user-attachments/assets/3a3ba6a0-b9d1-4278-8640-fe9cdd6567df)
 
-![userId-encoding](https://github.com/user-attachments/assets/961d7b86-7b07-4780-b844-e531947aafb9)
+    Selanjutnya ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2272 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
 
-* Encoding *movieId*
-
-![movieId-encoding](https://github.com/user-attachments/assets/3a3ba6a0-b9d1-4278-8640-fe9cdd6567df)
-
-Selanjutnya ambil total_user, total movie dan nilai rating minimum dan maksimum untuk proses pembagian dataset sebelum melakukan pelatihan model. Hasilnya diperoleh yaitu 669 pengguna, 2272 film serta nilai rating minimum sebesar 0.5 dan maksimum sebesar 5.0.
-
-#### Membagi Data untuk Training dan Validasi
-Pada tahap ini, data training dan data validasi dibagi untuk proses pelatihan model. Namun sebelum itu, perlu mengacak dataset sehingga menjadi data yang valid. Hasilnya seperti pada gambar berikut:
-
-![data-acak-uji](https://github.com/user-attachments/assets/1edac292-34f4-4d77-a7f0-f98632a8e7af)
-
-Selanjutnya, buat variabel x untuk mencocokkan data user dan Movie menjadi satu value, kemudian variabel y untuk membuat rating dari hasil. Terakhir,  bagi menjadi `80%` data train dan `20%`` data validasi.
+* **Membagi Data untuk Training dan Validasi**
+    Pada tahap ini, data training dan data validasi dibagi untuk proses pelatihan model. Namun sebelum itu, perlu mengacak dataset sehingga menjadi data yang valid. Hasilnya seperti pada gambar berikut:
+    ![data-acak-uji](https://github.com/user-attachments/assets/1edac292-34f4-4d77-a7f0-f98632a8e7af)
+    Selanjutnya, buat variabel x untuk mencocokkan data user dan Movie menjadi satu value, kemudian variabel y untuk membuat rating dari hasil. Terakhir,  bagi menjadi `80%` data train dan `20%`` data validasi.
 
 ## Modeling and Result
 Pada tahap ini ada dua model yang dipakai untuk dilatih, di evaluasi dan memberikan rekomendasi kepada pengguna film. Kedua model tersebut dapat dijelaskan sebagai berikut:
-
 ### Modeling Content-Based Filtering (CBF)
 Pada proyek ini, metode yang digunakan adalah `Consine Similarity`,  yang berfungsi mengukur kesamaan antara dua dokumen atau vektor dalam ruang multidimensi. Metode ini digunakan untuk sistem rekomendasi berbasis `Content-Based Filtering` yang memberikan rekomendasi berdasarkan karakteristik atau konten dari item genre film yang telah disukai atau dinilai oleh pengguna. Menurut Firmansyah(2018), `Cosine similarity` digunakan dalam ruang positif, dimana hasilnya dibatasi antara nilai `0` dan `1`. Kalau nilainya `0` maka dokumen tersebut dikatakan mirip jika hasilnya 1 maka nilai tersebut dikatakan tidak mirip Perhatikan bahwa batas ini berlaku untuk sejumlah dimensi.
 
 Langkah pertama hitung `cosine similarity` pada matrix `tf-idf` yang dapat dilihat pada gambar berikut:
-
 ![consimilarity-1](https://github.com/user-attachments/assets/3369cf7b-12ff-44ed-9f1f-51dd549f2d41)
 
 Langkah kedua, lihat hasil cosine similarity pada matrix tf-idf anta judul film yang mirip berdasarkan genre.
-
 ![consimilarity-2](https://github.com/user-attachments/assets/a8597a78-d66c-4afc-aefd-2b1ea59018c2)
 
 Selanjutnya, buat fungsi rekomendasi film berdasarkan kemiripan genre dengan menerapkan fungsi Top-N rekokemendasi serta menguji dan mengevaluasi model yang dibuat.
 
-#### Pengujian Sistem Rekomendasi
+### Pengujian Sistem Rekomendasi
 Pada proses pengujian akan diambil satu judul film untuk dilakukan pengujian seperti yan terlihat pada gambar berikut:
 
 ![cfb-1](https://github.com/user-attachments/assets/054a8b62-f530-48ef-bad9-5fb85fe3ae32)
@@ -341,7 +329,7 @@ Proses latihan model dapat dilihat pada gambar berikut:
 
 Dapat dilihat, hasil pelatiahn memperoleh nilai mean_absolute_error: 0.1382 dan root_mean_squared_error: 0.1749
 
-#### Penujian Sistem Rekomendasi
+### Penujian Sistem Rekomendasi
 Proses pengujian sistem dilakukan berdasarkan Top-10 Rekomendasi film terbaik kepada pengguna yang memiliki kesamaan:
 
 ![image](https://github.com/user-attachments/assets/b480d86d-1d9a-44a7-ade7-6d41b12e43e7)
